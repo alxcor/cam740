@@ -152,8 +152,9 @@
       <li><a href="index_ro.html">Romana</a></li>
       <li class="active"><a href="http://github.com/alxcor/cam740">Cam740</a></li>
       <li><a href="#connection">Connection</a></li>
-      <li><a href="#840diagnosis">840D:diagnosis</a></li>
-      <li><a href="#840functions">840D:monit.funcții</a></li>
+      <li><a href="#840diagnosis">Sinumerik:diagnosis</a></li>
+      <li><a href="#840functions">Sinumerik:functions</a></li>
+      <li><a href="#120diagnosis">Sinamics:diagnosis</a></li>
     </ul>
   </section>
 <!-- END Menu Bar ... -->
@@ -203,12 +204,12 @@
           <td colspan="2"><b>Target System; Settings for connection:</b></td>
         </tr>
         <tr><td><b>Interface:</b></td><td> the connection interface options are:</td></tr>
-        <tr><td>&nbsp - "TCP/IP":</td><td> Connection type may be 'PG', 'OP' or 'S7 Basic'. There is no functional difference.</td></tr>
-        <tr><td>&nbsp - "S7ONLINE":</td><td> Connection type may be 'MPI / PROFIBUS', 'TCP/IP' or 'ISO Ethernet'.</td></tr>
+        <tr><td>&nbsp; - "TCP/IP":</td><td> Connection type may be 'PG', 'OP' or 'S7 Basic'. There is no functional difference.</td></tr>
+        <tr><td>&nbsp; - "S7ONLINE":</td><td> Connection type may be 'MPI / PROFIBUS', 'TCP/IP' or 'ISO Ethernet'.</td></tr>
         <tr><td><b>PLC Address:</b></td><td> set here the address of the target system (Step7-PLC or Sinamics Drive)</td></tr>
         <tr><td><b>Rack:</b></td><td> Step7 rack of the CPU (usually Rack 0).</td></tr>
         <tr><td><b>Slot:</b></td><td> Step7 slot of the CPU. Typical values are: <b>Slot 0 for S7-1500</b> or <b>Slot 1 for S7-1500 in Sinumerik ONE</b> or <b>Slot 2 for S7-300 series</b></td></tr>
-        <tr><td>&nbsp</td><td>&nbsp</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
       </table><br>
     </li>
   </ul>
@@ -216,7 +217,7 @@
 <section class="elem_lst">
   <ul>
     <li>
-      <h2 id="840diagnosis">Diagnoză Sinumerik 840D/One</h2>
+      <h2 id="840diagnosis">Diagnosis Sinumerik 840D/One</h2>
       <br><img src="images/area_840d_1.png" style="width:100%; max-width:700px"><br><br>
       <table>
         <tr>
@@ -226,10 +227,10 @@
         <tr><td><b>X127:</td><td> (Service Interface):</b> Address: 192.168.215.1</td></tr>
         <tr><td><b>X120:</td><td> (System Network):</b> Address: 192.168.214.1</td></tr>
         <tr><td><b>X130:</td><td> (Company Network):</b> Address: set by network administrator</td></tr>
-        <tr><td colspan="2">&nbsp</td></tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
         <tr><td colspan="2"><b>Sinumerik 840D:</b> Rack 0, Slot 2</td></tr>
         <tr><td colspan="2"><b>Sinumerik ONE:</b> Rack 0, Slot 1</td></tr>
-        <tr><td colspan="2">&nbsp</td></tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
       </table>
       <br><br>
     </li>
@@ -272,7 +273,7 @@
       <a id="generic"><b>Generic Variable:</b></a><br>
       <img src="images/area_840d_gen.png" style="max-width:577px; width:100%">
       <br><br>
-      The status of up to 3 variables may be monitorized and/or changed online.<br>
+      The status of up to 3 variables may be monitored and/or changed online.<br>
       <br><br>
     </li>
     <li>
@@ -378,7 +379,7 @@
       <td valign="top"><b>Read In Disable:</b><br>PLC -> NC</td>
       <td valign="top"><b>DBch.DBX6.1</b><br><br>DBch = DB[20 + Channel Number]<br>Example: DB21 = Channel 1</td>
       <td valign="top"><b>Read In Disable:</b><br>
-        <b>0 = NO: (Read-In Enabled)</b> The main run reads in preprocessed part program blocks.<br>
+        <b>0 = NO: (Read-In Enabled)</b> The main run reads in pre-processed part program blocks.<br>
         <b>1 = YES: (Read-In Disabled)</b> The main run does not read in any preprocessed part program blocks.<br><br>
         <i><b>Note:</b> The signal is only active in AUTOMATIC and MDI modes.</i><br>
         <br><b>Note:</b><br>
@@ -528,13 +529,13 @@
       <b>1 = ON:</b> Feedrate/spindle stop is active.<br>
       <br>
       <b>Axis</b><br>
-      - If the interface signal is set while traversing the axis, then the axis is braked down to standstill along its braking characteristic. If the axis is in an interpolatory relationship with other axes, these are also braked.<br>
+      - If the interface signal is set while traversing the axis, then the axis is braked down to standstill along its braking characteristic. If the axis is in an interpolation relationship with other axes, these are also braked.<br>
       - After the interface signal has been reset, traversing motion that was stopped is continued.<br>
       - The position control is retained and the following error is eliminated.<br>
       - If the interface signal is set, and a request is issued to traverse, then the axis is not traversed. However, the traverse request is kept. When the interface signal is reset, the traverse request is immediately executed, i.e. the axis is traversed.<br>
       - The interface signal is active in all modes.<br>
       <b>Spindle</b><br>
-      - If the interface signal is set while traversing the spindle, then the spindle is braked down to standstill along its braking characteristic. If the spindle is in an interpolatory relationship with other spindles, these are also braked.<br>
+      - If the interface signal is set while traversing the spindle, then the spindle is braked down to standstill along its braking characteristic. If the spindle is in an interpolation relationship with other spindles, these are also braked.<br>
       - After the interface signal has been reset, traversing motion that was stopped is continued.<br>
       - During positioning, the position control is retained and the following error is eliminated.<br>
       - If the interface signal is set, and a request is issued to move during positioning operation, then the spindle is not moved. However, the traverse request is kept. When the interface signal is reset, the traverse request is immediately executed, i.e. the spindle is moved.<br>
@@ -575,7 +576,7 @@
       - If position measuring system 2 is available (MD30200 $MA_NUM_ENCS == 2), its actual position value is also acquired.<br>
       <br><br>
       <b>Notes</b><br>
-      - If the interface signal of the active position measuring system is reset for a traversing axis, the axis is stopped with a ramp stop without the controller enable being cancelled internally.<br>
+      - If the interface signal of the active position measuring system is reset for a traversing axis, the axis is stopped with a ramp stop without the controller enable being canceled internally.<br>
       - If a speed-controlled spindle does not have a position measuring system, the "Controller enable" interface signal must be set: DB31, ... DBX2.1 == 1 (controller enable)<br>
       - After deactivation of the "parking" state, incremental position measuring systems have to be referenced to achieve the "referenced" encoder status.<br>
       - If the "parking" state is active, the following interface signal is ignored at NC start for this axis:<br>
@@ -921,7 +922,7 @@
       <td valign="top"><b>STOP A Requested</b><br><br>
       "Pulse cancellation" can be requested and executed using this SGE.<br>
       The safe functions currently active (SG/SBH/SN/SE) are not influenced by this SGE.<br>
-      If one of the currently active limits is violated, an appropriate alarm is initiated. The associated shutdown response cannot be activated because the pulses have already been cancelled. As soon as the stop request is cancelled via the SGE "deselect ext. STOP A" any queued shutdown responses become active.<br>
+      If one of the currently active limits is violated, an appropriate alarm is initiated. The associated shutdown response cannot be activated because the pulses have already been canceled. As soon as the stop request is canceled via the SGE "deselect ext. STOP A" any queued shutdown responses become active.<br>
       If a stop request is active, SGA "STOP A/B is active" is set in the same way as it would be for an internally triggered STOP A.<br><br>
       0 signal: "Pulse cancellation" is requested<br>
       1 signal: "Pulse cancellation" is not requested
@@ -1040,7 +1041,7 @@
       Only first 99 functions are decoded.<br>
       The M function index is not decoded.<br>
       A small calculator for the bit and a monitoring function is available in <a href="#mfctcalc">'Area 840'</a> of 'Cam740' program.<br><br>
-      <img alt="Quick M functions" src="images/area_840f_m1.png" style="width:100%; max-width:700px">
+      <img alt="Quick M functions" src="images/area_840f_m1.png" style="width:100%; max-width:577px">
       <br><br>
       <a id="m_fct2"><b>2. Decoding using a List of Functions (DB75, DB76)</b></a><br><br>
       Another method for decoding M function in PLC is using a List of Functions.<br>
@@ -1065,7 +1066,7 @@
       <b>MSigGrp[n].MLastAdr</b> DINT <i>//last M function Number for Group n</i><br>
       <br>
       Example:<br>
-      <img alt="Decode M fct." src="images/area_840f_m2.png" style="width:100%; max-width:737px">
+      <img alt="Decode M fct." src="images/area_840f_m2.png" style="width:100%; max-width:577px">
       <br><br>
       In DB76 the bits will have the following meaning:<br>
       <b>DBX0.0</b> M2 = 60<br>
@@ -1082,10 +1083,10 @@
       <b>This method is used also by 'Cam740' program.</b><br><br>
       Into an NC block is possible to have a maximum of 5 calls for M functions.<br>
       Eack time a block with M fct. call is running in NC, the following bits are set, for a single PLC cycle, in Channel DB in the PLC.<br>
-      <img alt="M function change" src="images/area_840f_m3.png" style="width:100%; max-width:737px">
+      <img alt="M function change" src="images/area_840f_m3.png" style="width:100%; max-width:577px">
       <br><br>
       ...and the function value is written in:<br>
-      <img alt="M function change" src="images/area_840f_m4.png" style="width:100%; max-width:737px">
+      <img alt="M function change" src="images/area_840f_m4.png" style="width:100%; max-width:577px">
       <br><br>
       'Cam740' is scanning the bits in DB2n.DBX 58.0 ... 58.4<br><br>
       If DB2n.DBX58.0 = 1 => read M function number from DBD70 and M fct. extension from DBW68<br>
@@ -1093,6 +1094,92 @@
       If DB2n.DBX58.2 = 1 => read M function number from DBD82 and M fct. extension from DBW80<br>
       If DB2n.DBX58.3 = 1 => read M function number from DBD88 and M fct. extension from DBW86<br>
       If DB2n.DBX58.4 = 1 => read M function number from DBD94 and M fct. extension from DBW92<br>
+      <br><br>
+      <a id="h_fct1"><b>H functions (NC to PLC):</b></a><br><br>
+      H functions are commands, written in G Code, in the part program, but executed by the PLC, used in order to transfer numerical values from NC to PLC.<br>
+      Into an NC block is possible to have a maximum of 3 calls for H functions.<br>
+      <img alt="H functions" src="images/area_840f_hfc.png" style="width:100%; max-width:577px">
+      <br><br>
+      'Cam740' is scanning the bits in DB2n.DBX 64.0 ... 64.2<br><br>
+      If DB2n.DBX64.0 = 1 => read H function number from DBD142 and H fct. extension from DBW140<br>
+      If DB2n.DBX64.1 = 1 => read H function number from DBD148 and H fct. extension from DBW146<br>
+      If DB2n.DBX64.2 = 1 => read H function number from DBD154 and H fct. extension from DBW152<br>
+      <br>
+      See also:<br>
+      MD22110 $MC_AUXFU_H_TYPE_INT (type of H-auxiliary function is an integer)<br>
+      MD22230 $MC_AUXFU_H_SYNC_TYPE (output time of the H functions)<br>
+      Ref.: Function Manual, Basic Functions; Chapter "H2: Auxiliary function outputs to PLC”<br><br>
+      <a id="t_fct1"><b>T functions (NC to PLC):</b></a><br>
+      <a id="d_fct1"><b>D functions (NC to PLC):</b></a><br><br>
+      Into an NC block is possible to have a maximum of 3 calls for T functions.<br><br>
+      <b>Note:</b> Programmed T functions are not output to the PLC when tool management is active (as in any actual version of Sinumerik 840D/One). In this case no data is detected by monitoring the PLC.<br><br>
+      <i>8 decade T numbers are only available under DBD118 "T function 1".<br>
+      Programmed D functions with names (e.g. D=CUTTING EDGE_1) cannot be output to the PLC in ASCII format.<br>
+      5-decade D numbers are only available as DBW130 "D function 1".<br>
+      The REAL format corresponds to the floating-point representation in STEP 7 (24-bit mantissa and 8-bit exponent). This floating point format supplies a maximum of seven valid places.</i><br><br>
+      <img alt="T functions" src="images/area_840f_tfc.png" style="width:100%; max-width:577px">
+      <br><br>
+    </li>
+  </ul>
+</section>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2 id="120diagnosis">Diagnosis Sinamics S120/G120</h2>
+      <br><img src="images/area_120s_1.png" style="width:100%; max-width:700px"><br><br>
+      <a id="120settings"><b>Connection, Interfaces:</b></a><br><br>
+      <table>
+        <tr>
+          <td rowspan="5" style="width:100px"><img alt="connection" title="Sinamics interfaces" src="images/area_s120_ig.png" style="max-width:100px;"></td>
+          <td><b>Sinamics G120:</b></td>
+        </tr>
+        <tr><td> Locate the Profinet or the Profibus interface</td></tr>
+        <tr><td> You may need to find out the Ethernet address / Profibus address using another software (Starter, StartDrive, TIA Portal, etc).</td></tr>
+        <tr><td> Rack: 0</td></tr>
+        <tr><td> Slot: Any</td></tr>
+          <td rowspan="7" style="width:100px"><img alt="connection" title="Sinamics interfaces" src="images/area_s120_is.png" style="max-width:100px;"></td>
+          <td><b>Sinamics S120:</b></td>
+        </tr>
+        <tr><td> You may use X127 (Ethernet Service Interface) or any Profibus / Profinet interface if available</td></tr>
+        <tr><td> You may need to find out the Ethernet address / Profibus address using another software (Starter, StartDrive, TIA Portal, etc).</td></tr>
+        <tr><td> Rack: 0</td></tr>
+        <tr><td> Slot: Any</td></tr>
+        <tr><td>&nbsp</td></tr>
+        <tr><td>&nbsp</td></tr>
+      </table>
+      <br><br>
+      <a id="120conection"><b>Object number:</b></a><br><br>
+      <table>
+        <tr valign="top">
+          <td rowspan = "2" style="width:140px"><img alt="connection" title="Sinamics G120" src="images/area_s120_g120.png" style="max-width:140px;"></td>
+          <td><b>Sinamics G120:</b></td>
+        </tr>
+        <tr valign="top"><td> For single drives (such as Sinamics G120, G120D, G120C, G120X, etc.) the object number is not relevant.<br>
+        The Control Unit is connected to the Power Module and together are a Drive Object: a system with the capability to control the motor, save parameters, receive commands, etc.</td></tr>
+        <tr valign="top"><td rowspan="3" style="width:140px"><img alt="S120 modular" title="Sinamics S120 modular" src="images/area_s120_s120.png" style="max-width:140px;"></td>
+          <td><b>Sinamics S120:</b></td>
+        </tr>
+        <tr valign="top"><td> Drive systems with modular architecture, such as Sinamics S120, have a more complex architecture.<br>
+        Various components are linked, via DC-Link Busbar and via Drive-Cliq interface system to control one or more motors.<br>
+        In such a system the motor is not controlled by a single piece of hardware, as in a 'Single Drive', more linked components are needed to control the motor.<br>
+        </td></tr>
+        <tr><td>   Example:<br>
+          in the left picture is represented a modular system controlling 3 motors.<br>
+          - 1st module (the small one from the left) is the Control Unit<br>
+          - 2nd module is the Line Module: a rectifier that converts the alternate current from the mains into direct current.<br>
+          - 3rd module is a Double Motor Module: two inverters modulating the direct current from the Line Module into alternate current used to control the motors.<br>
+          - 4th module is a Single Motor Module: an inverter modulating the direct current from the Line Module into alternate current used to control the motor.<br></td></tr>
+        <tr valign="top"><td rowspan="4" style="width:140px"><img alt="Sinamics S120" title="Sinamics S120 modular" src="images/area_s120_s121.png" style="max-width:140px;"></td>
+        <td>  <b>(1)</b> In Sinamics S120 systems, the Control Unit is considered a Drive Object. <br>In our example it will be the first Object.</td>
+        </tr>
+        <tr valign="top"><td><b>(2)</b> A modular system needs a rectifier module. Some rectifiers such as Active Line Module have parameters and are considered a Drive Object in the system.<br>In our example the Active Line Module (rectifier) is the 2nd Object.
+        </td></tr>
+        <tr valign="top"><td><b>(3)</b> and <b>(4)</b> A double Motor Module has two independent inverter bridges, each one capable to supply the AC voltage for a motor. Each inverter has it's own parameters and, together with the motor, the motor encoder and the encoder electronics (such as a Sensor Module) are Drive Objects.<br>In our example, Drive Object <b>(3)</b> is constituted from the first inverter of the Double Motor Module, the first motor and any encoder electronics present.<br>
+        Drive Object <b>(4)</b> is constituted from the second inverter of the Double Motor Module, the second motor and any encoder electronics present.
+        </td></tr>
+        <tr valign="top"><td><b>(5)</b> Drive Object <b>(5)</b> is constituted form the last Motor Module, the last motor and the encoder electronics.
+        </td></tr>
+      </table>
       <br><br>
     </li>
   </ul>
@@ -1104,8 +1191,9 @@
         <b>Versions:</b><br>
         <b>v23.06.24:</b> First test version. Complete rewrite of Monitor5 project.<br>
         <br>
-        <i>Cam740 is using Snap7 under LGPL3 Licence to communicate with the Sinumerik/Sinamics/Step7 equipment.<br>
-        Cam740 is using Qt under LGPL3 Licence.</i>
+        <i>Cam740 is using Snap7 under LGPL3 License to communicate with the Sinumerik/Sinamics/Step7 equipment.<br>
+        Cam740 is using Qt under LGPL3 License.<br>
+        Cam740 may also use S7ONLINE interface if the DLL file is provided by user and a license is activated.</i>
       </p>
     </li>
   </ul>

@@ -6,7 +6,7 @@
 
 web page:  [alxcor.github.io/cam740](https://alxcor.github.io/cam740).
 
-Offline functions, without a connection to a live PLC system:<br>
+Offline functions, without a connection to a live PLC system:
 - Sinumerik alarm bit calculator: DB2 bit for a specific alarm number or alarm number for a specific bit in DB2
 - Sinumerik M function calculator: Channel DB bit for quick decoding of an M function
 - Sinumerik Fast IO calculator: DB10 bits for monitoring or control of a specific NCK fast input
@@ -27,7 +27,7 @@ To 'uninstall' simply delete the folder.
 Versions:
 - v230624 [24.06.2023] first test version. Complete rewrite of Monitor5 project.
 
-*- The project uses Snap7 under LGPL3 Licence to communicate with the Sinumerik/Sinamics/Step7 equipment.*
-*- The project uses Qt under LGPL3 Licence.*
-*- The project may also use S7ONLINE interface if the DLL file is provided by user and a licence is activated.*
+*- The project uses Snap7 under LGPL3 License to communicate with the Sinumerik/Sinamics/Step7 equipment.*
+*- The project uses Qt under LGPL3 License.*
+*- The project may also use S7ONLINE interface if the DLL file is provided by user and a license is activated.*
 
