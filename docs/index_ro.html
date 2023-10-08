@@ -1041,7 +1041,7 @@
       Sunt decodificare doar primele 99 de functii.<br>
       Indexul functiei M nu este decodificat (se ignora).<br>
       In tab-ul <a href="#mfctcalc">'Aria 840'</a> din programul 'Cam740' puteti gasi un mic calculator pentru bit si o functie de monitorizare online a starii acestuia.<br><br>
-      <img alt="Quick M functions" src="images/area_840f_m1.png" style="width:100%; max-width:700px">
+      <img alt="Quick M functions" src="images/area_840f_m1.png" style="width:100%; max-width:577px">
       <br><br>
       <a id="m_fct2"><b>2. Decodificare utilizand o Lista de Functii (DB75, DB76)</b></a><br><br>
       O alta metode de decodificare a functiilor M in PLC o reprezinta utilizarea unei Liste de Functii.<br>
@@ -1066,7 +1066,7 @@
       <b>MSigGrp[n].MLastAdr</b> DINT <i>//numărul ultimei funcții M pentru Grupul n</i><br>
       <br>
       Exemplu:<br>
-      <img alt="Decodificare fct. M" src="images/area_840f_m2.png" style="width:100%; max-width:737px">
+      <img alt="Decodificare fct. M" src="images/area_840f_m2.png" style="width:100%; max-width:577px">
       <br><br>
       In DB76 bitii vor avea urmatoarea semnificatie:<br>
       <b>DBX0.0</b> M2 = 60<br>
@@ -1083,10 +1083,10 @@
       <b>Aceasta metoda e utilizata si de programul 'Cam740'.</b><br><br>
       Intr-un bloc NC pot fi apelate maximum 5 functii M.<br>
       De fiecare data cand in NC este rulat un bloc - o fraza de program piesa - in care sunt apelate functii M, in PLC, in blocul DB specific respectivului canal (Channel DB) sunt setati urmatorii biti, pentru un singur ciclu PLC.<br>
-      <img alt="modificare functie M" src="images/area_840f_m3.png" style="width:100%; max-width:737px">
+      <img alt="modificare functie M" src="images/area_840f_m3.png" style="width:100%; max-width:577px">
       <br><br>
       ...iar valorile functiilor M sunt scrise in:<br>
-      <img alt="modificare functie M" src="images/area_840f_m4.png" style="width:100%; max-width:737px">
+      <img alt="modificare functie M" src="images/area_840f_m4.png" style="width:100%; max-width:577px">
       <br><br>
       'Cam740' scaneaza starea bitilor in DB2n.DBX 58.0 ... 58.4<br><br>
       Dacă DB2n.DBX58.0 = 1 => citeste numarul functiei M din DBD70 si extensia functiei M din DBW68<br>

@@ -1,0 +1,1203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Sinumerik online monitoring, Sinumerik 840D remote diagnosis, Sitrain simulator, Step7 scope monitoring, Totally Integrated Automation, MCP Machine Control Panel Simulation, Virtual MCP, Virtual Machine Control Panel">
+<meta name="description" content="Virtual MCP for Sinumerik 840D Solution Line">
+<head><title>Cam740 Ajutor</title>
+  <style>
+    /* Setari generale: chenar, fonturi, etc. */
+    * { box-sizing: border-box;}
+    body {color: #000000; background-color: #FFFFFF;}
+    body {font-family: Arial, sans-serif; font-size: 100%;}
+    h1 {font-family: Garamond, serif; font-size: 2.500rem;}
+    h2 {font-family: Garamond, serif; font-size: 1.875rem;}
+    h3 {font-family: Garamond, serif; font-size: 1.300rem;}
+    table {border-collapse: collapse;width: 100%;}
+    th {border: 1px solid #004080;}
+    td {border: 1px solid #004080;}
+    tr:nth-child(odd) {background-color: rgba(120, 120, 170, 0.4);}
+    /* Logo: data/versiune; titlu; subtitlu */
+    .logo1p {
+      margin-top: 5px; margin-left: 15px; margin-right: 10px;
+      font-family: Arial; font-size: 0.8rem; line-height: 10px;
+      text-align: right; color: #90909F; }
+    .logo2p { 
+      margin-top: 10px; margin-left: 15px; margin-right: 10px;
+      font-family: Arial; font-size: 3rem; line-height: 50px;
+      text-align: left; color: #303050; }
+    .logo3p {
+      margin-top: -20px; margin-left: 100px; margin-right: 10px;
+      font-family: Arial; font-size: 2.5rem; line-height: 35px;
+      text-align: left; color: #90909F; }
+    /* Bara meniu orizontal: setari fundal */
+    .menu_bar {
+      display: flex; flex-direction: row; align-items: center;
+      background-color: #303050;
+      background: linear-gradient(to left, #00000F, #505070);
+      color: #90909F; height: 50px; font-family: Arial;
+      position: sticky; top: 0;  padding: 0;}
+    /* Bara meniu orizontal: Menu Button Container */
+    .menu_ctn {
+      display: none; height: 100%; width: 60px; cursor: pointer;
+      flex-direction: column; justify-content: center;
+      align-items: center;}
+    /* Bara meniu orizontal: Menu Button */
+    .menu_btn, .menu_btn::before, .menu_btn::after {
+      display: block; background-color: #90909F; position: absolute;
+      height: 4px; width: 30px; border-radius: 2px;
+      transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);}
+    .menu_btn::before { content: ''; margin-top: -8px;}
+    .menu_btn::after  { content: ''; margin-top:  8px;}
+    #menu_tog { display: none;}
+    #menu_tog:checked + .menu_ctn .menu_btn {
+      background: rgba(255, 255, 255, 0);}
+    #menu_tog:checked + .menu_ctn .menu_btn::before {
+      margin-top: 0px; transform: rotate(45deg);}
+    #menu_tog:checked + .menu_ctn .menu_btn::after {
+      margin-top: 0px; transform: rotate(-45deg);}
+    /* Bara meniu orizontal: lista orizontala */
+    .menu_lst {
+      display: flex; flex-direction: row; list-style-type: none;
+      margin: 0; padding: 0;}
+    /* Bara meniu orizontal: setari elemente lista li */
+    .menu_lst > li { margin: 0; overflow: hidden;}
+    .menu_lst li:hover { background:#404040;}
+    .menu_lst li.active {background-color: #6060A0;}
+    /* Bara meniu orizontal: setari aliniat li */
+    .menu_lst li a {
+      display: block; color: #F4F4FF; text-align: left;
+      padding: 14px; text-decoration: none; font-size: 1rem;}
+    .menu_lst li a:hover{ background-color: #404040;}
+    /* Element principal tip 1 */
+    .elem_top { background: url("images/header.png") center;
+      background-size: cover; padding: 0rem 2rem; padding-bottom: 10rem;
+      display: grid; align-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));}
+    .elem_top > * {color: white;}
+    .elem_top > h1 {font-size: 3rem; padding-bottom: 0.5rem;
+      background-color: rgba(0,0,0,0.5); color: #F0F0FF;}
+    /* Element principal tip 2 */
+    .elem_tos { padding: 0rem; margin: 0rem;}
+    .elem_tos > figure {height: 340px; overflow: hidden; margin:0rem;}
+    /* Element lista 2*/
+    .elem_lst {padding: 0.2rem; margin 0.2rem;}
+    .elem_lst > ul {
+      list-style-type: none; display: list-item; grid-gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      padding: 0.2rem;}
+    .elem_lst > ul > li {border: 0px solid #90909F; border-bottom: 1px solid #90909F;}
+    .elem_lst > ul > li > figure {
+      height: 200px; overflow: hidden; margin:0.1rem;}
+    .elem_lst > ul > li > figure > img {width: 100%;}
+    .elem_lst > ul > li > figure > figcaption {
+      position: absolute; bottom: 0;
+      background-color: rgba(0,0,0,0.7); width: 100%;}
+    .elem_lst > ul > li > figure > figcaption > h3 {
+      color: white; padding: .75rem; font-size: 1.25rem;}
+    .elem_lst > ul > li > p {
+      font-size: 1rem; line-height: 1.1rem; padding: 0.2rem 0.2rem;
+      <!--color: #90909F;-->}
+    .elem_lst > ul > li > p > a {
+      font-size: 0.8rem; line-height: 1; padding: 0.5rem;
+      background-color: 40404F; text-decoration: none;
+      color: FFFFFF; border-radius: .25rem;
+      text-align: center; display: inline-block;}
+    .mono {font-family: monospace; margin-left: 20px;}
+    .par1 {margin-left: 20px;}
+    .maxp {max-width: 100%;}
+    .footer {
+      background-color: #40404F; color: white; padding: .25rem;
+      text-align: right; font-size: .5rem;}
+    @media (max-width: 800px) {
+      .menu_ctn { display: flex;}
+      #menu_tog ~ .menu_lst li {
+        height: 0; margin: 0; padding: 0; border: 0;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);}
+      #menu_tog:checked ~ .menu_lst li {
+        border: 1px solid #30303F; height: 2.5rem;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);}
+      .menu_lst {
+        position: absolute; top: 0; margin-top: 50px; left: 0;
+        flex-direction: column; width: 100%;
+        justify-content: center; align-items: center;}
+      .menu_lst > li {
+        display: flex; justify-content: left; margin: 0;
+        padding: 0.5rem 0; width: 100%; color: white;
+        background-color: #10102F;}
+    }
+    @media (prefers-color-scheme: light) {
+      body {color: #000000; background-color: #FFFFFF;}
+    }
+    @media (prefers-color-scheme: dark) {
+      body {color: #FFFFFF; background-color: #000000;}
+    }
+  </style>
+</head>
+<!-- START BODY ... -->
+<body>
+  <!-- START Header Area ... -->
+  <a name="#top"> </a>
+  <div class="logo1p" align="center">v23.06.24; Jun.2023</div>
+  <div class="logo2p" align="center"><b>Cam740</b></div>
+  <div class="logo3p" align="center"><b>ajutor</b></div>
+  <!-- END Header Area ... -->
+  <!-- START Menu Bar ... -->
+  <section class="menu_bar">
+    <input id="menu_tog" type="checkbox" />
+    <label class='menu_ctn' for="menu_tog">
+      <div class='menu_btn'></div>
+    </label>
+    <ul class="menu_lst">
+      <li><a href="http://alxcor.github.io/index_ro.html">Acasa</a></li>
+      <li><a href="index.html">English</a></li>
+      <li class="active"><a href="http://github.com/alxcor/cam740">Cam740</a></li>
+      <li><a href="#connection">Conectare</a></li>
+      <li><a href="#840diagnosis">Sinumerik:diagnoză</a></li>
+      <li><a href="#840functions">Sinumerik:funcții</a></li>
+      <li><a href="#120diagnosis">Sinamics:diagnoză</a></li>
+    </ul>
+  </section>
+<!-- END Menu Bar ... -->
+<!-- START Main Area ... -->
+<section class="elem_top">
+  <h1>Cam740</h1>
+</section>
+<br>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2>Diagnoză pentru Sinumerik, Sinamics sau Simatic S7</h2>
+      <p>
+      'Cam740' poate fi utilizat pentru diagnoza sistemelor Sinumerik 840D, Sinamics sau Simatic conectate prin Ethernet, Profibus, MPI sau alte interfețe permise de către sistemele Siemens Simatic S7.<br>
+      <br>
+      Funcții 'Offline', fără o conexiune la un sistem PLC:<br>
+      - Calculator biți alarme Sinumerik: calculează bitul din DB2 pentru un anumit număr de alarmă sau numărul alarmei corespunzătoare unui bit din DB2<br>
+      - Calculator funcții M Sinumerik: calculează bitul din blocul DB specific canalului pentru decodificarea rapidă a unei funcții M<br>
+      - Calculator IO Rapide Sinumerik: calculează bitul din DB10 pentru monitorizarea sau controlul unei intrări rapide NCK<br>
+      - Ajutor pentru alarmele Sinamics: Afișează ajutor pentru o alarmă Sinamics funcție de numărul acesteia<br>
+      <br>
+      Funcții 'Online', atunci când programul este conectat la un sistem PLC activ:<br>
+      - Diagnoză axă / canal Sinumerik: un ecran cu informații în timp real referitoare la starea unora din cele mai importante semnale de permitere pentru diagnoza unei axe sau a unui canal<br>
+      - Monitorizare alarme fabricant Sinumerik / modificare stare bit alarmă
+      - Jurnal și înregistrare funcții M Sinumerik<br>
+      - Diagnoză a stării unei acționări Sinamics<br>
+      <br>
+      Cam740 este bazat pe mai vechiul proiect 'Monitor5' ... <a href="http://alxcor.github.io/monitor5">Monitor5</a><br>
+      <br>
+      Nu este necesara instalarea programului, acesta este portabil iar toate datele și setările sunt salvate în fișiere .INI în directorul propriu.<br>
+      <br>
+      Pentru 'dezinstalare' este suficient să ștergeți întreg directorul în care ați salvat programul.<br>
+      <br>
+      <a >Download ...</a>
+      <a href="http://github.com/alxcor/cam740">Goto GitHub</a>
+      </p>
+    </li>
+  </ul>
+</section>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2 id="connection">Conectarea la un sistem activ Simatic PLC / Sinumerik / Sinamics</h2>
+      <table>
+        <tr>
+          <td rowspan="8" style="width:130px"><img alt="connection" title="Screen Overview" src="images/connection.png"></td>
+          <td colspan="2"><b>Sistem Țintă; Setări pentru conectare:</b></td>
+        </tr>
+        <tr><td><b>Interfața:</b></td><td> opțiunile de selectare a interfeței de conectare sunt:</td></tr>
+        <tr><td>&nbsp - "TCP/IP":</td><td> Conexiunea poate fi de tip 'PG', 'OP' sau 'S7 Basic'. Nu ar trebui să existe diferențe în funcționare.</td></tr>
+        <tr><td>&nbsp - "S7ONLINE":</td><td> Conexiunea poate fi de tip 'MPI / PROFIBUS', 'TCP/IP' sau 'ISO Ethernet'.</td></tr>
+        <tr><td><b>Adresă PLC:</b></td><td> setați aici adresa sistemului țintă (Step7-PLC sau Sinamics Drive)</td></tr>
+        <tr><td><b>Rack:</b></td><td> Step7 rack CPU (de obicei Rack 0).</td></tr>
+        <tr><td><b>Slot:</b></td><td> Step7 slot CPU. Valori uzuale sunt: <b>Slot 0 pentru S7-1500</b> sau <b>Slot 1 pentru S7-1500 în Sinumerik ONE</b> sau <b>Slot 2 pentru seria S7-300</b></td></tr>
+        <tr><td>&nbsp</td><td>&nbsp</td></tr>
+      </table><br>
+    </li>
+  </ul>
+</section>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2 id="840diagnosis">Diagnoză Sinumerik 840D/One</h2>
+      <br><img src="images/area_840d_1.png" style="width:100%; max-width:700px"><br><br>
+      <table>
+        <tr>
+          <td rowspan="8" style="width:230px"><img alt="connection" title="840D interfaces" src="images/area_840d_interf.png" style="max-width:300px;"></td>
+          <td colspan="2"><b>Sistem Țintă; Setări conectare:</b></td>
+        </tr>
+        <tr><td><b>X127:</td><td> (Interfață Service):</b> Adresă: 192.168.215.1</td></tr>
+        <tr><td><b>X120:</td><td> (Rețea Sistem):</b> Adresă: 192.168.214.1</td></tr>
+        <tr><td><b>X130:</td><td> (Rețea Compania):</b> Adresă: setată de administratorul de rețea</td></tr>
+        <tr><td colspan="2">&nbsp</td></tr>
+        <tr><td colspan="2"><b>Sinumerik 840D:</b> Rack 0, Slot 2</td></tr>
+        <tr><td colspan="2"><b>Sinumerik ONE:</b> Rack 0, Slot 1</td></tr>
+        <tr><td colspan="2">&nbsp</td></tr>
+      </table>
+      <br><br>
+    </li>
+    <li>
+      <a id="840d_offline"><h2>Funcții Offline:</h2></a>
+      Unele funcții ale acestui program pot fi utilizate și fără o conexiune.<br><br>
+      <hr color="#004080" size="1">
+      <a id="alarmcalc"><h3>Calculator Alarme:</h3></a>
+      <img src="images/area_840d_alm.png" style="max-width:577px; width:100%">
+      <br><br>
+      La introducerea unui număr de alarmă în câmpul 'Alarma' și apăsarea tastei ENTER este calculat bitul corespunzător din DB2 în câmpul 'bit DB2'. Exemple: 510008, 700040, etc<br>
+      La introducerea unui număr de bit în câmpul 'bit DB2' și apăsarea tastei ENTER este calculat numărul alarmei corespunzătoare. Exemple: DB2.DBX185.5 sau DBX185.5 sau 185.5<br>
+      <br>
+      <img src="images/area_840d_alm_0.png">
+      <b>Notă:</b> Când programul este conectat online la un sistem Sinumerik real, starea bitului (Alarmă SETATĂ sau Alarmă NE-SETATĂ) este afișată și poate fi modificată online cu butoanele 'Setare Bit' și 'Resetare bit'.<br>
+      <br><br>
+      <hr color="#004080" size="1">
+      <a id="mfctcalc"><h3>Calculator funcții M:</h3></a>
+      <img src="images/area_840d_mfc.png" style="max-width:577px; width:100%">
+      <br><br>
+      <b>Notă:</b> Această funcție calculează doar biții corespunzători decodificării rapide 'Fast M decode' din blocul DB corespunzător canalului, din PLC. Sunt decodificate doar funcțiile M0 la M99, fără extensie. O monitorizare completă a modificării funcțiilor M este disponibilă în Aria '840D Func'.<br>
+      Pentru mai multe informații referitoare la decodificarea biților corespunzători funcțiilor M vedeți și ajutorul corespunzător.<br><br>
+      Introduceți numărul canalului în câmpul 'Canal' și numărul funcției M în câmpul 'func M'. Programul calculează atât numărul blocului DB cât și numărul bitului corespunzător în câmpul 'bit'. Exemple: 'Canal:' 1 și 'funct.M:' 3 sau 'Canal:' 1 și 'funct.M:' M3<br>
+      Introduceți un număr de bit în câmpul 'bit' și apăsați ENTER. Este calculat numărul funcției M corespunzătoare. Dacă nu este introdus și numărul blocului DB, numărul canalului este setat la 0 (zero). Exemple: DB22.DBX198.3 sau DBX198.3 (fără număr canal) sau 198.3 (fără număr canal)<br>
+      <br>
+      <img src="images/area_840d_mfc_0.png">
+      <b>Notă:</b> Când programul este conectat online la un sistem Sinumerik real, starea bitului (Funcție M SETATĂ sau NE-SETATĂ) este afișată și poate fi modificată online cu butoanele 'Setare Bit' și 'Resetare bit'.<br>
+      <br>
+      <img src="images/area_840d_mfc_1.png">
+      <b>Notă:</b> Cu ajutorul funcției 'Monitor' (apăsarea butonului 'Monitor') starea bitului este monitorizată, reținută și afișată chiar dacă bitul este setat o perioada foarte scurtă de timp, de ex. un ciclu PLC. Pentru a reseta starea apasați din nou butonul 'Monitor'.
+      <br><br>
+      <hr color="#004080" size="1">
+      <a id="fstiocalc"><b>Calculator IO rapide:</b></a><br>
+      <img src="images/area_840d_fst.png" style="max-width:577px; width:100%">
+      <br><br>
+      Introduceți numărul unei intrări NCK rapide în câmpul 'IO NCK' și apăsați ENTER. Biții corespunzători din DB10 pentru 'dezactivare intrare din PLC', 'setare valoare din PLC' și 'valoare actuala de la Hardware' sunt calculați în câmpurile corespunzătoare.
+      <br>
+      <br><b>Notă:</b> În cazul unei conexiuni active (în modul Online), stările biților sunt afișate.
+      <br><br>
+      <hr color="#004080" size="1">
+      <a id="generic"><b>Variabilă generică:</b></a><br>
+      <img src="images/area_840d_gen.png" style="max-width:577px; width:100%">
+      <br><br>
+      Starea a până la 3 variabile poate fi monitorizată și/sau modificată online.<br>
+      <br><br>
+    <li>
+      <a id="840d_online"><h3>Monitorizare Online:</h3></a>
+      <img src="images/area_840d_1.png" style="max-width:577px; width:100%">
+      <br><br>
+      În cazul unei conexiuni active (în modul Online), sunt afișate date referitoare la starea Axei sau Canalului NC.<br>
+      <br>
+    </li>
+    <li>
+    <a id="channel"> </a>
+    <table border="1" cellpadding="3" cellspacing="3" width="100%"><tbody>
+      <tr>
+      <td valign="top"><b>Grup Canal:</b></td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_1.png"></td>
+      <td valign="top"><b>Număr Canal</b><br>Utilizator...</td>
+      <td valign="top"><b>Folosiți tastele direcționale (săgețile Sus/Jos) de pe tastatură</b></td>
+      <td valign="top">Selectați numărul Canalului. Funcția este dezactivată în cazul în care opțiunea 'Act.Canal / Link Channel' este bifată în grupul 'Axă'.</td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_2.png"></td>
+      <td valign="top"><b>Stare Canal</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBch.DBX35.5 = Activ<br>DBch.DBX35.6 = Întrerupt<br>DBch.DBX35.7 = Reset</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top">Stare Canal:<br>
+        <b>Activ:</b> Canalul este Activ, un Program Piesa rulează (este executat) sau o axă se deplasează;<br>
+        <b>Întrerupt:</b> Canalul este întrerupt de:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.3 (NC Stop)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.4 (NC Stop axe plus arbori)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.2 (NC Stop la sfârșitul frazei)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - M00 sau M01 programat<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Mod Fraza-cu-fraza (Single-block mode)<br>
+        <b>Reset:</b> Canalul este în mod Reset, nu este activă nici o acțiune în Canal;<br>
+      </td></tr>
+      <td valign="top"><img src="images/area_840d_1_3.png"></td>
+      <td valign="top"><b>Stare Program</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBch.DBX35.0 = Rulează<br>DBch.DBX35.1 = În așteptare<br>DBch.DBX35.2 = Oprit<br>DBch.DBX35.3 = Întrerupt<br>DBch.DBX35.4 = Anulat</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top">Stare Program:<br>
+        <b>Rulează: DBX35.0:</b> Programul piesă a fost lansat în execuție cu semnalul de interfață DBch.DBX7.1 (NC Start) și este în execuție (rulează).<br>
+        <b>În așteptare: DBX35.1:</b> Programul piesă aflat în execuție așteaptă în urma unei comenzi WAIT_M sau WAIT_E programate într-o frază NC.<br>
+        <b>Oprit: DBX35.2:</b> Execuția programului piesă a fost oprită de:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.3 (NC Stop)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.4 (NC Stop axe plus arbori)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DBch.DBX7.2 (NC Stop la sfârșitul frazei)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - M00 sau M01 programat<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Mod Frază-cu-frază (Single-block mode)<br>
+        <b>Întrerupt: DBX35.3:</b> La schimbarea modului de operare din AUTOMATIC sau MDI (cu execuția programului piesă oprită) în JOG, starea execuției programului se modifică în "Întrerupt".<br>
+        <b>Anulat: DBX35.4:</b> Nici un program piesă nu rulează în Canal; execuția programului piesă nu a fost pornită sau a fost încheiată cu M02/M30/RET/etc sau a fost anulată cu Reset.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_4.png"></td>
+      <td valign="top"><b>Canal 'Ready'</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBch.DBX36.5</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top">Canalul este pregătit:<br>
+        <b>1 = OK:</b> Canalul este pregătit pentru procesarea din programul piesă a axelor mașină, axelor geometrice și axelor de poziționare.<br>
+        <b>0 = NO:</b> Canalul nu este pregătit pentru procesarea din programul piesă a axelor mașină, axelor geometrice și axelor de poziționare.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_5.png"></td>
+      <td valign="top"><b>Alarmă Canal NC</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBch.DBX36.6</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top">O alarmă NCK specifica unui canal este activă:<br>
+        <b>0 = NU:</b> Nici o alarmă NCK (specifică unui canal) nu este activă pentru acest canal.<br>
+        <b>1 = DA:</b> Cel puțin o alarmă NCK (specifică unui canal) este activă pentru acest canal.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_6.png"></td>
+      <td valign="top"><b>Alarmă NC</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBch.DBX36.7</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top">O alarmă NCK cu oprire preprocesare este activă:<br>
+        <b>0 = NU:</b> În acest canal nu este activă nici o alarmă care sa cauzeze stop preprocesare.<br>
+        <b>1 = DA:</b> Cel puțin o alarma NCK - ce cauzează o oprire a pre-procesării programului ce rulează în acest canal - este activă<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_7.png"></td>
+      <td valign="top"><b>Reset</b><br>Utilizator->PLC</td>
+      <td valign="top"><b>DBch.DBX7.7</b></td>
+      <td valign="top">La apăsare (Click): un semnal de Reset este transmis către Canal prin intermediul bitului DBch.DBX7.7</td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_8.png"></td>
+      <td valign="top"><b>Dezactivare Avans:</b><br>PLC -> NC</td>
+      <td valign="top"><b>DBch.DBX6.0</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top"><b>Dezactivare avans (Feed disable):</b><br>
+        <b>0 = NU: (Avansuri active)</b> Avansurile sunt active pentru toate axele din acest canal. Dacă pentru o axă sau grup de axe din acest canal este prezentă o cerere de deplasare (travel request) (sau comandă de deplasare / "travel command") iar acest semnal este 0 (inactiv) deplasarea este efectuată imediat..<br>
+        <b>1 = DA: (Avansuri dezactivate)</b> Semnalul este activ pentru un canal în toate modurile de operare. Semnalul dezactivează avansurile pentru toate axele (geometrice sau sincrone) ce interpolează una fata de alta cat timp G33 (filetare / thread) nu este activ.<br>
+        Toate axele sunt aduse la staționare păstrând conturul programat. Atunci când dezactivarea avansurilor este anulată (semnal 0 -> permitere avansuri), execuția programului piesa este reluată/continuată.<br>
+        Semnalul declanșează o dezactivare a avansurilor pentru toate axele de poziționare. Toate axele aflate în mișcare/deplasare sunt aduse la staționare cu oprire controlată (cu rampa de decelerare). Nu este emisă nici o alarmă.<br>
+        Controlul poziției este menținut, respectiv eroarea de urmărire este anulată.<br>
+        Dacă o cerere de deplasare este emisă pentru o axă din canal cât timp semnalul 'Dezactivare avans' / 'Feed disable' este activ, cererea de deplasare este memorată. Deplasarea este efectuată imediat ce semnalul 'Dezactivare avans' / 'Feed disable' este anulat.<br>
+        Dacă axa respectivă se află în interpolare cu alte axe, anularea avansului se aplică și acestora.<br>
+        <br><b>Notă:</b><br>
+        În mod uzual, semnalul 'Dezactivare avans' / 'Feed disable' este generat de blocul FC10 (bloc standard din biblioteca de funcții 'Siemens ToolBox Library') în programul PLC.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_9.png"></td>
+      <td valign="top"><b>Dezactivare Citire Frază:</b><br>PLC -> NC</td>
+      <td valign="top"><b>DBch.DBX6.1</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top"><b>Dezactivare Citire Frază / Read In Disable:</b><br>
+        <b>0 = NU: (Citire frază permisă / Read-In Enabled)</b> Sistemul citește și execută următoarele fraze/linii de program piesă pre-procesate.<br>
+        <b>1 = DA: (Citire frază dezactivată / Read-In Disabled)</b> Sistemul nu citește și nu execută următoarele fraze/linii de program piesă pre-procesate.<br><br>
+        <i><b>Notă:</b> Semnalul este activ doar în modurile AUTOMATIC și MDI.</i><br>
+        <br><b>Notă:</b><br>
+        În mod uzual, semnalul 'Dezactivare avans' / 'Feed disable' este generat de blocul FC10 (bloc standard din biblioteca de funcții 'Siemens ToolBox Library') în programul PLC.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_a.png"></td>
+      <td valign="top"><b>Anulare DTG:</b><br>PLC -> NC</td>
+      <td valign="top"><b>DBch.DBX6.2</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top"><b>Anulare 'distanță rămasă de parcurs'/'distance-to-go' (pe canal)</b><br>
+        <b>0 = NU:</b> Nici un efect<br>
+        <b>1 = DA:</b> Anulare 'distanță rămasă de parcurs'/'distance-to-go' (pe canal):<br><br>
+        Semnalul de interfață 'Anulare 'distanță rămasă de parcurs'/'distance-to-go' (pe canal) pentru axele de interpolare este activ doar în modul AUTOMATIC.<br>
+        Frontul crescător al acestui semnal are efect doar asupra axelor ce sunt implicate in grupări geometrice (interpolări). Acestea sunt oprite cu rampa de decelerare iar distanța restantă rămasă de parcurs este anulată (prescrisa este setată cu valoarea actuală de poziție). O eventuala eroare de urmărire este corectată. Apoi este declanșată execuția următoarei fraze de program piesă.<br>
+        Semnalul de interfață Anulare 'distanță rămasă de parcurs'/'distance-to-go' (pe canal) este ignorat de axele de poziționare și relevant doar pentru axele de interpolare.<br>
+        <b>Remarcă:</b> Semnalul de interfață Anulare 'distanță rămasă de parcurs'/'distance-to-go' (pe canal) nu influențează timpul de așteptare actual pentru o frază de program piesă cu temporizare (dwell time) (de ex. G04).<br><br>
+        Semnal irelevant pentru axele de poziționare<br><br>
+        Exemplu de aplicație: încheierea unei deplasări funcție de un semnal extern (de exemplu un palpator de masură)<br><br>
+        Corespunzător cu ... DBax.DBX2.2 ('Anulare 'distanță rămasă de parcurs' /'delete distance-to-go' (pe axă))
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_1_b.png"></td>
+      <td valign="top"><b>Dezactivare NC-Start:</b><br>PLC -> NC</td>
+      <td valign="top"><b>DBch.DBX7.0</b><br><br>DBch = DB[20 + Număr Canal]<br>Exemplu: DB21 = Canal 1</td>
+      <td valign="top"><b>Dezactivare NC-Start / NC-Start disable:</b><br>
+        <b>0 = NU: (Permitere NC-Start)</b> Dezactivarea NC Start nu este activă.<br>
+        <b>1 = DA: (Dezactivare NC-Start)</b> Dezactivarea NC Start impiedică începerea execuției unui program piesă prin intermediul semnalului NC START DBch.DBX7.1 (NC Start) == 1.<br>
+      </td></tr>
+    </tbody></table>
+    <br>
+    <a id="axis1"> </a>
+    <table border="1" cellpadding="3" cellspacing="3" width="100%"><tbody>
+      <tr>
+      <td valign="top"><b>Grup 1 Axă:</b></td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_1.png"></td>
+      <td valign="top"><b>Număr axă</b><br>Utilizator...</td>
+      <td valign="top"><b>Folosiți tastele direcționale (săgețile Sus/Jos) de pe tastatură</b></td>
+      <td valign="top">Selectați numărul Axei.</td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_2.png"></td>
+      <td valign="top"><b>Număr Canal</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX68.0 = bit 0<br>DBax.DBX68.1 = bit 1<br>DBax.DBX68.2 = bit 2<br>DBax.DBX68.3 = bit 3</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Alocare canal în NC pentru axa/arbore:<br>
+      Numărul Canalului NC căruia îi este alocată axa (arborele) (codificare binara).<br><br>
+      Info de la NC către PLC. Pentru axele ce sunt alocate în mai mult de 1 canal, acesta este numărul canalului în care este alocată axa în acest moment.
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_2b.png"></td>
+      <td valign="top"><b>Actualizare Canal / Link Channel</b><br>Utilizator</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">Dacă opțiunea 'Act.Chan'/'Link Channel' este selectată, numărul canalului din grupul din stânga va fi setat automat cu numărul canalului în care este alocată axa...
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_3.png"></td>
+      <td valign="top"><b>Tip Axă: Axă/Arbore</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX60.0</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top"><b>Tip Axă:</b><br>
+      <b>0 = Axă</b> <br>
+      <b>1 = Arbore</b><br>
+      În cazul unei erori de citire pentru datele de axă (de exemplu numărul axei este mai mare decât numărul axelor din sistem) aici este afișat mesajul 'Axă: eroare'
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_4.png"></td>
+      <td valign="top"><b>Override Axa:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBB0</b><br><b>DBax.DBB19</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top"><b>Notă:</b> <i>valoarea afișată pe ecran este calculată conform setărilor 'standard' pentru override în cod Gray</i><br><br>
+      Pentru Axe, valoarea pentru override este setată de către PLC către NC în DBax.DBB0.<br>
+      Pentru Arbori ('Tip Axa' (DBax.DBX60.0) = 1), valoarea pentru override este setată de către PLC către NC în DBax.DBB19<br><br>
+      <b>Valori avans și avans-rapid specifice Canal [ne-implementate în Cam740]:</b><br>
+      Pentru valorile de override pentru avans și avans-rapid sunt disponibile în interfața NC/PLC semnale de permitere dedicate și factori de corecție specifici:<br>
+      DB21, ... DBX6.7 (override avans activ)<br>
+      DB21, ... DBB4 (valoare override avans)<br>
+      DB21, ... DBX6.6 (override avans-rapid activ)<br>
+      DB21, ... DBB5 (valoare override avans-rapid)<br>
+      Factorii de calcul pentru override pot fi specificați de către PLC fie în format binar fie în cod Gray.<br>
+      Formatul este setat în NC prin intermediul datelor de mașină:<br>
+      MD12020 $MN_OVR_FEED_IS_GRAY_CODE (selector override avans contur în cod Gray / path feedrate override switch gray-coded)<br>
+      MD12040 $MN_OVR_RAPID_IS_GRAY_CODE (selector override avans rapid în cod Gray / rapid traverse override switch gray-coded)<br><br>
+      <b>Override avans specific axa / Axis-specific feedrate override</b><br>
+      Pentru fiecare axa de poziționare/interpolare, în interfața NC/PLC există un semnal de activare și un octet/byte pentru factorul de override avans.<br>
+      DB31, ... DBX1.7 (activare override)<br>
+      DB31, ... DBB0 (valoare override)<br>
+      Factorii de calcul pentru override pot fi specificați de către PLC fie în format binar fie în cod Gray.<br>
+      Formatul este setat în NC prin intermediul datei de mașina:<br>
+      MD12000 $MN_OVR_AX_IS_GRAY_CODE (selector override avans axa în cod Gray / axis feedrate override switch gray-coded)<br>
+      Pentru codificare binară se aplică următoarea regulă permanentă: DBB0 = 0 => 0% ... DBB0 = 200 => 200%<br>
+      Pentru codificare în cod Gray, valorile de override corespunzătoare pozițiilor comutatorului rotativ trebuie să fie setate în datele de mașina MD12010 $MN_OVR_ FACTOR_AX_ SPEED [n]<br><br>
+      <b>Override Arbore</b><br>
+      Pentru fiecare arbore, în interfața NC/PLC există un semnal de activare și un octet/byte pentru factorul de override arbore.<br>
+      DB31, ... DBX1.7 (activare override)<br>
+      DB31, ... DBB19 (valoare override arbore)<br>
+      Factorii de calcul pentru override pot fi specificați de către PLC fie în format binar fie în cod Gray.<br>
+      Formatul este setat în NC prin intermediul datei de mașină:<br>
+      MD12060 $MN_OVR_SPIND_IS_GRAY_CODE (selector override arbore în cod Gray / spindle override switch gray-coded)<br>
+      Pentru codificare binară se aplică următoarea regulă permanentă: DBB19 = 0 => 0% ... DBB0 = 200 => 200%<br>
+      Pentru codificare în cod Gray, valorile de override corespunzătoare pozițiilor comutatorului rotativ trebuie să fie setate în datele de mașina MD12070 $MN_OVR_FACTOR_SPIND_SPEED [n]<br><br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_5.png"></td>
+      <td valign="top"><b>Liber Impuls:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX21.7</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Liber Impuls / Pulse enable:<br>
+      <b>1 = DA:</b> Impulsurile sunt activate/permise pentru actionarea axei. Permiterea pulsurilor are loc in actionare doar cand aceasta semnalizeaza starea de 'gata de functionare' / readiness: DBax.DBX93.5 == 1 (feedback: Drive ready)<br>
+      <b>0 = NU:</b> Impulsurile sunt dezactivate pentru actionarea axei.<br>
+      Dacă semnalul 'Liber Impuls' este anulat pe timpul miscarii (de ex. la Stop de Urgenta), axa/actionarea_principala nu mai este franata controlat. Axa se va opri liber pana la staționare.<br><br>
+      Corespunzator cu: <b>DBax.DBX93.5</b> (feedback: Drive ready); <b>DBax.DBX93.7</b> (feedback: Impulsurile sunt activate / Pulses are enabled)
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_6.png"></td>
+      <td valign="top"><b>Liber Reglare:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX2.1</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Liber Reglare / Controller enable:<br>
+      <b>1 = DA:</b> Regulatorul este activat.<br>
+      Bucla de control a poziției este activa (inchisa) iar axa (sau actionarea principala) este controlata in bucla inchisa.<br>
+      Feedback: DBax.DBX61.5 = 1 (regulator de poziție activ)<br>
+      Dacă axa a fost referentiata inainte de resetarea acestui semnal, axa nu trebuie sa fie referentiata din nou dupa ce semnalul este setat din nou. Conditie suplimentara: Limita de frecventa a sistemului de masura activ nu trebuie sa fie depasita in acest timp.<br>
+      <i><b>Nota</b><br>
+      Dacă axa a fost deplasata din poziție cat timp semnalul 'Liber Reglare' nu a fost setat, comportamentul axei la restabilirea semnalului 'Liber Reglare' depinde de semnalul de interfață 'mod urmărire' / 'follow-up mode':<br>
+      - DBax.DBX1.4 == 1 (mod urmărire / follow-up mode): Bucla de reglare a poziției este implementata din pozitia actuala<br>
+      - DBax.DBX1.4 == 0 (mod urmărire dezactivat / no follow-up mode): Bucla de reglare a poziției este implementata de la ultima poziție a axei inainte dee resetarea semnalului 'Liber Reglare'</i><br><br>
+      <b>0 = NU:</b> Regulatorul este dezactivat.<br><br>
+      Comportamentul la resetarea semnalului 'Liber Reglare' depinde de starea axei in acel moment: stationara sau in miscare:<br>
+      <b>- Axa/actionare_principala stationara:</b><br>
+      - Bucla de control a poziției axei este deschisa (intrerupta).<br>
+      - In cazul DBax.DBX1.4 == 1 (mod urmărire / follow-up mode) ⇒ prescrisa de poziție = valoarea actuala de poziție<br>
+      - Semnalul 'Liber reglare' al actionarii axei este resetat<br>
+      - Urmatoarele semnale de interfață sunt resetate: DBax.DBX61.5 = 0 (regulator de poziție activ); DBax.DBX61.6 = 0 (regulator de viteza activ); DBax.DBX61.7 = 0 (regulator de curent activ)<br>
+      <b>- Axa/actionarea principala se afla in miscare</b><br>
+      - Axa este oprita cu stop rapid.<br>
+      - Alarma 21612 'Semnal VDI Liber Reglare resetat pe timpul deplasarii' / 'Controller enable VDI signal reset during motion'.<br>
+      - Bucla de control a poziției axei este deschisa (intrerupta).<br>
+      - Independent de semnalul de interfață DBax.DBX1.4 (mod urmărire / follow-up mode), prescrisa de poziție este corectata la sfarsitul operatiei de franare(prescrisa poziție = valoare actuala poziție) iar semnalul de reactie DBax.DBX61.3 = 1 (mod urmărire / follow-up mode) este setat.<br>
+      - Urmatoarele semnale de interfață sunt resetate: DBax.DBX61.5 = 0 (regulator de poziție activ); DBax.DBX61.6 = 0 (regulator de viteza activ); DBax.DBX61.7 = 0 (regulator de curent activ)<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_7.png"></td>
+      <td valign="top"><b>Stop Avans / Feed Stop:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX4.3</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Stop Avans/Arbore, specific axa / Feedrate/spindle stop, axis-specific<br>
+      <b>0 = NU:</b> Stop Avans/Arbore inactiv.<br>
+      <b>1 = DA:</b> Stop Avans/Arbore activ.<br>
+      <br>
+      <b>Axa</b><br>
+      - Dacă semnalul de interfață este setat in timpul deplasarii axei, aceasta este franata pana la staționare cu rampa de franare caracteristica. Daa axa se afla in relatie de interpolare cu alte axe, acestea sunt deasemenea franate.<br>
+      - Dupa ce semnalul de interfață este resetat, deplasarea axei oprite este reluata.<br>
+      - Controlul poziției este menținut si eroarea de urmărire este anulata.<br>
+      - Dacă semnalul de interfață este setat si o cerere de deplasare a axei este emisa, axa nu se va deplasa. Totusi, cererea de deplasare este memorata. La resetarea semnalului de interfață, cererea de deplasare este executata imediat si axa se va deplasa.<br>
+      - Semnalul de interfață este activ in toate modurile de operare.<br>
+      <b>Arbore (Actionare principala)</b><br>
+      - Dacă semnalul de interfață este setat in timpul deplasarii arborelui, aceasta este franat pana la staționare cu rampa de franare caracteristica. Daa arborele se afla in relatie de interpolare cu alti arbori, acestia sunt deasemenea franati.<br>
+      - Dupa ce semnalul de interfață este resetat, deplasarea/rotirea arborelui oprit este reluata.<br>
+      - Pe timpul pozitionarii, controlul poziției este menținut si eroarea de urmărire este anulata.<br>
+      - Dacă semnalul de interfață este setat si o cerere de deplasare a arborelui este emisa pe timpul pozitionarii, arborele nu se va deplasa. Totusi, cererea de deplasare este memorata. La resetarea semnalului de interfață, cererea de deplasare este executata imediat si arborele se va deplasa.<br>
+      - Semnalul de interfață este activ in toate modurile de operare.<br>
+      - Semnalul de interfață nu este activ pe timpul filetarii / tarodarii (G331, G332).<br>
+      <br><b>Nota:</b><br>
+      In mod uzual, semnalul 'Dezactivare avans' / 'Feed disable' este generat de blocul FC10 (bloc standard din biblioteca de functii 'Siemens ToolBox Library') in programul PLC.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_8.png"></td>
+      <td valign="top"><b>Encoder 1 activ:<br>Encoder 2 activ:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX1.5<br>DBax.DBX1.6</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Selectarea encoderului activ...<br><br>
+      <b>Cazul 1: DBX1.5=0 DBX1.6 = 0:</b><br>
+      Sistemele de masura a poziției 1 si 2 sunt inactive ("parcare" a axei masina):<br>
+      - Nu mai exista o achizitie a valorii actuale.<br>
+      - Monitorizarea sistemelor de masura a poziției este dezactivata.<br>
+      - Urmatoarele semnale de interfață sunt resetate:<br>
+        – DB31, ... DBX60.4 / 5 == 0 (encoder 1/2 referentiat/sincronizat)<br>
+        – DB31, ... DBX61.5 (regulator poziție activ)<br>
+        – DB31, ... DBX61.6 (regulator viteza activ)<br>
+        – DB31, ... DBX61.7 (regulator curent activ)<br>
+      <br><br>
+      <b>Cazul 2: DBX1.5=1 DBX1.6 = 0:</b><br>
+      Sistemul de masura a poziției 1 este activ:<br>
+      - Controlul poziție axei este realizat functie de sistemul de masura 1.<br>
+      - Functiile de monitorizare (sistem de masura, staționare, monitorizare blocare, deviere de la contur, etc.) a axei masina sunt realizate functie de sistemul de masura 1.<br>
+      - Dacă sistemul de masura 2 exista (MD30200 $MA_NUM_ENCS == 2), valoare de poziție masurata de acesta este achizitionata dar nu este monitorizata de nici una din functiile de mai sus.<br>
+      <br><br>
+      <b>Cazul 3: DBX1.5=0 DBX1.6 = 1:</b><br>
+      Sistemul de masura a poziției 2 este activ:<br>
+      - Controlul poziție axei este realizat functie de sistemul de masura 2.<br>
+      - Functiile de monitorizare (sistem de masura, staționare, monitorizare blocare, deviere de la contur, etc.) a axei masina sunt realizate functie de sistemul de masura 2.<br>
+      - Dacă sistemul de masura 1 exista (MD30200 $MA_NUM_ENCS == 2), valoare de poziție masurata de acesta este achizitionata dar nu este monitorizata de nici una din functiile de mai sus.<br>
+      <br><br>
+      <b>Cazul 4: DBX1.5=1 DBX1.6 = 1:</b><br>
+      - Controlul poziție axei este realizat functie de sistemul de masura 1.<br>
+      - Dacă sistemul de masura 2 exista (MD30200 $MA_NUM_ENCS == 2), valoare de poziție masurata de acesta este si ea achizitionata.<br>
+      <br><br>
+      <b>Note</b><br>
+      - Dacă semnalul de interfață referitor la sistemul de masura activ este resetat pentru o axa aflata in miscare, axa este oprita cu rampa fara anularea interna a regulatorului.<br>
+      - Dacă un arbore controlat in viteza nu are un sistem de masura activ, semnalul de interfață "Liber Reglare" / "Controller enable" trebuie sa fie setat: DB31, ... DBX2.1 == 1 (liber reglare / controller enable)<br>
+      - Dupa dezactivarea starii de "parcare", sistemele de masura incrementale trebuie sa fie referentiate pentru a avea din nou starea de encoder "referentiat".<br>
+      - Dacă starea "parcata" este activa, urmatorul semnal de interfață este ignorat la NC start pentru aceasta axa:<br>
+        DB31, ... DBX60.4 / 5 (referentiat/sincronizat 1/ 2).
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_8.png"></td>
+      <td valign="top"><b>Encoder 1 referentiat:<br>Encoder 2 referentiat:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX60.4<br>DBax.DBX60.5</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Encoder Referentiat...<br><br>
+      <b>Encoder 1: DBX60.4:</b><br>
+      REF: Stare semnal 1: Sistemul 1 de masura a poziției este referentiat/sincronizat.<br>
+      N_Ref: Stare Semnal 0: Sistemul 1 de masura a poziției <b>nu</b> este referentiat/sincronizat.<br>
+      <b>Encoder 2: DBX60.5:</b><br>
+      REF: Stare semnal 1: Sistemul 2 de masura a poziției este referentiat/sincronizat.<br>
+      N_Ref: Stare Semnal 0: Sistemul 2 de masura a poziției <b>nu</b> este referentiat/sincronizat.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_a.png"></td>
+      <td valign="top"><b>Dezactivare Taste Deplasare:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX4.4</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Dezactivare Taste Deplasare:<br>
+      <b>1 = DA:</b> Tastele de deplasare "Plus" si "Minus" sunt blocate.<br>
+      <b>0 = NU:</b> Tastele de deplasare "Plus" si "Minus" sunt active.<br>
+      <br>
+      Corespunzator cu: <b>DBax.DBX4.6 / DBax.DBX4.7</b> (tastele de deplasare "Plus" / "Minus")<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_b.png"></td>
+      <td valign="top"><b>Anulare distanță de parcurs / Delete Distance to Go:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX2.2</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Anulare 'distanță rămasă de parcurs' / Delete Distance to Go: [Del DTG]<br>
+      <b>Puls/Tranzitie 0->1:<br> - Axa:</b> Este solicitata o anulare a distantei de parcurs restante.<br><b> - Arbore:</b> Este solicitat un Reset.<br>
+      <b>Puls/Tranzitie 1->0:</b> Nici un efect.<br>
+      <br>
+      <b>Axa: Anulare 'distanță rămasă de parcurs' / Delete distance-to-go</b><br>
+      - modurile AUTOMATIC si MDI<br>
+      Semnalul de interfață este activ doar daca axa este deplasata ca axa de pozitionare. O axa de pozitionare este decelerata pana la staționare cu rampa de franare caracteristica. Distanta rămasă de parcurs (din fraza in curs de executie) este anulata.<br>
+      - mod JOG<br>
+      Axa este franata pana la staționare cu rampa de franare carcteristica acestei axe iar apoi o eventuala distanță restanta de parcurs este anulata.<br><br>
+      <b>Arbore: reset</b><br>
+      - <b><i>mod Control:</i></b><br>
+      --> Arborele este oprit<br>
+      --> Programul NC este executat din nou (este citita si execuatata urmatoarea fraza)<br>
+      --> Arborele continua sa se roteasca, de data aceasta cu urmatoarea valoare S si urmatoarea functie M programate in programul piesa NC.<br>
+      - <i><b>Oscillation mode:</i></b><br>
+      --> mod Oscilatii<br>
+      --> Axele continua sa se deplaseze<br>
+      --> Programul NC continua cu gama de viteza actuala<br>
+      --> Arborele continua sa se roteasca cu , de data aceasta cu urmatoarea valoare S si urmatoarea functie M programate in programul piesa NC. Turatia obtinuta din aceste valori (valoarea actuala de turatie programata S si ultima gama de viteza activa) poate fi prea mare. In acest caz este setat semnalul de interfață corespunzator. DBax.DBX83.1<br>
+      - <i><b>Axa de pozitionare:</i></b> Arborele este oprit<br>
+      - <i><b>mod Axa:</i></b> Arborele este oprit<br>
+      <br><b>Nota:</b><br>
+      Reactia la reset a arborelui este independenta de setarile din data de masina : MD35040 $MA_SPIND_ACTIVE_AFTER_RESET<br><br>
+      Corespunzator cu: <br>
+      DBch.DBX6.2 (anulare 'distanță rămasă de parcurs' / delete distance-to-go)<br>
+      DBax.DBX83.1 (viteza programata prea mare)<br>
+      MD35040 $MA_SPIND_ACTIVE_AFTER_RESET (reset individual arbore / own spindle reset)<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_2_c.png"></td>
+      <td valign="top"><b>Limita Hardware:</b><br>PLC->NC</td>
+      <td valign="top"><b>Limita -: DBax.DBX12.0<br>Limita +: DBax.DBX12.1</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Limitatoare Hardware [Plus sau Minus]:<br>
+      <b>1 = DA:</b> Limitator hardware ("Plus" sau "Minus") activat.<br>
+      Alarma 21614 "Limita Hardware -" este afisata iar axa este oprita.<br>
+      respectiv<br>
+      Alarma 21614 "Limita Hardware +" este afisata iar axa este oprita.<br>
+      <br>
+      <b>0 = NU:</b> Limitatorul Hardware ("Plus" sau "Minus") nu a fost activat.<br>
+      <br>
+      Corespunzator cu: MD36600 $MA_BRAKE_MODE_CHOICE (comportament la decelerare la atingerea limitatorului hardware)<br>
+      </td></tr>
+    </tbody></table>
+    <br>
+    <a id="axis2"> </a>
+    <table border="1" cellpadding="3" cellspacing="3" width="100%"><tbody>
+      <tr>
+      <td valign="top"><b>Grup 2 Axe:</b></td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_1.png"></td>
+      <td valign="top"><b>Alarma Axiala</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.1</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> Este emisa o alarma specifica de axa. Axa este franata pana la staționare functie de caracteristica de decelerare specifica. Starea axei este schimbata in "Alarma axa singulara activa" / "Single axis alarm is active".<br>
+      <b>0 = NU:</b> Nu exista alarma specifica axa.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_2.png"></td>
+      <td valign="top"><b>Axis Gata / Ready</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.2</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> Axa este pregatita / ready.<br>
+      <b>0 = NU:</b> Axa <b>nu</b> este pregatita / ready.<br><br>
+      Semnalul este procesat in unitatea NCU la care este conectata actionarea corespunzatoare axei. Axa nu este pregatita (not ready), daca, pe acest NCU este afisata o alarma cu reactia sistemului "NC ..." sau "Mode group..." sau "Canal nu este pregatit (not ready)", ce implica axa respectiva.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_3.png"></td>
+      <td valign="top"><b>Urmarire / Follow Up</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.3</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> Modul 'urmărire' / 'follow-up' este activ pentru axa/arbore.<br>
+      Cauze posibile:<br>
+      - Semnalul 'Liber Reglare' a fost resetat pentru actionarea axei.<br>
+      --> DBax.DBX2.1 == 0 (Liber Reglare / controller enable)<br>
+      –-> din cauza unei erori in regulator / unitatea de control; vedeti la "Referinte Aditionale"<br>
+      - Modul 'urmărire' a fost selectat:<br>
+      –-> DBax.DBX1.4 == 1 (mod 'urmărire' / 'follow-up').<br>
+      –-> in regulator, de ex. prin anularea semnalului 'Liber Reglare' pentru o axa in miscare<br>
+      Cat timp modul 'urmărire' este activ: prescrisa de poziție = valoarea de poziție actuala<br>
+      <br><b>Nota</b><br>
+      Monitorizarea la staționare si/sau blocare nu sunt active.<br><br>
+      <b>0 = NU:</b> Modul 'urmărire' pentru axa/arbore nu este activ. Monitorizarile la staționare si/sau blocare sunt active.<br><br>
+      <b>Nota</b><br>
+      In starea "Blocat" / "Hold", semnalul "mod urmărire activ" / "Follow-up mode active" nu este setat.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_4.png"></td>
+      <td valign="top"><b>Regulator Pozitie Pornit/Oprit<br>Position Control ON/OFF</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.5</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> Regulatorul de poziție este activ, respectiv bucla de control a poziției pentru axa/arbore este inchisa.<br>
+      <b>0 = NU:</b> Regulatorul de poziție nu este activ, respectiv bucla de control a poziției pentru axa/arbore este deschisa.<br>
+      Semnalul este resetat atunci cand semnalul 'Liber Reglare' (DBax.DBX2.1 == 0) este resetat de catre programul utilizator PLC sau ca rezultat al unei erori interne.<br>
+      <br><b>Informatii aditionale</b><br>
+      <b><i>Arbore fara control de poziție</i></b><br>
+      Pentru un arbore fara control de poziție, semnalul este intotdeauna zero / 0.<br>
+      <b><i>Arbore cu posibilitate de control in poziție</i></b><br>
+      Pentru arborii cu optiunea de control a poziției, dupa activarea controlului de poziție, de ex. utilizand SPCON sau M70, semnalul este gestionat similar unei axe controlate in poziție.<br>
+      <b><i>Axa verticala</i></b><br>
+      Pentru o axa verticala frana de staționare ar trebui activata imediat ce regulatorul de poziție nu mai este activ (DB31, ... DBX61.5 == 0).<br>
+      <b><i>Axa simulata</i></b><br>
+      Emiterea semnalului poate fi parametrizata si pentru o axa simulata: MD30350 $MA_SIMU_AX_VDI_OUTPUT = 1<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_5.png"></td>
+      <td valign="top"><b>Regulator Viteza Pornit/Oprit<br>Speed Control ON/OFF</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.6</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA: </b>Regulatorul de viteza este activ, respectiv bucla de control in viteza a axei/arborelui este inchisa.<br>
+      <b>0 = NU: </b>Regulatorul de viteza este inactiv, respectiv bucla de control in viteza a axei/arborelui este deschisa. Iesirea regulatorului de viteza este anulata.<br>
+      <br><b>Informatii aditionale</b><br>
+      <b><i>Arbore fara control in poziție</i></b><br>
+      Dacă arborele nu este controlat in poziție, semnalul poate fi utilizat ca reactie pentru semnalul DBax.DBX2.1 (Liber Reglare).<br>
+      <b><i>Axa simulata</i></b><br>
+      Emiterea semnalului poate fi parametrizata si pentru o axa simulata: MD30350 $MA_SIMU_AX_VDI_OUTPUT = 1<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_6.png"></td>
+      <td valign="top"><b>Regulator Curent Pornit/Oprit<br>Current Control ON/OFF</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX61.7</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA: </b>Regulatorul de curent este activ, respectiv bucla de control in curent a axei/arborelui este inchisa.<br>
+      <b>0 = NU:</b> Regulatorul de curent nu este activ, respectiv bucla de control in curent a axei/arborelui este deschisa. Iesirea regulatorului de curent, incluzand variabila de injectie pe tensiunea de control, este anulata.<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_7a.png"></td>
+      <td valign="top"><b>Dezactivare axa/arbore<br>Axis/spindle disable</b><br>PLC -> NC</td>
+      <td valign="top"><b>DBax.DBX1.3</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA: </b>Dezactivarea axei/arborelui este ceruta.<br>
+      <b>0 = NU: </b>Nu este ceruta o dezactivare a axei/arborelui.<br><br>
+      <b>Axa:</b><br>
+      - Efecte pentru o axa stationara:<br>
+      --> Nu este emisa nici o prescrisa la iesirea regulatorului de poziție, respectiv deplasarea axei este dezactivata. Axa este controlata in bucla inchisa de poziție si orice eroare de urmărire rămasă este compensata.<br>
+      --> Dacă axa este deplasata printr-un program NC sau manual, pozitia si viteza setate sunt afisate ca poziție si viteza actuale in interfața utilizator. La reset canal sau la sfarsitul programului piesa (M30/M2), valoarea afisata ca valoare actuala este din nou valoarea actuala a axei masina.<br>
+      --> Comenzile de deplasare sunt emise catre interfața NC/PLC.<br>
+      - Efecte pentru o axa in deplasare:<br>
+      --> Axa este oprita conform caracteristicii de franare active la momentul respectiv si o alarma este afisata. Imediat dupa deplasarile axei sunt dezactivate. Bucla de control a poziției ramane activa si va mentine axa in pozitia curenta.<br>
+      <b>Arbore:</b><br>
+      - Efecte pentru modul de control in bucla deschisa si arbore stationar:<br>
+      --> Nici o prescrisa nu este emisa catre regulatorul de viteza, respectiv miscarile de deplasare a arborelui sunt dezactivate.<br>
+      --> Dacă arborele este deplasat prin intermediul unui program NC sau manual, prescrisa de viteza este afisata pe interfața utilizator ca valoare actuala de viteza.<br>
+      - Efecte pentru modul de control in bucla deschisa si arbore in rotatie:<br>
+      --> O prescrisa deviteza zero este emisa imediat catre regulatorul de viteza.<br>
+      --> Arborele este oprit conform caracteristicii de franare activa in momentul respectiv si o alarma este afisata. Dupa aceasta miscarile de deplasare a arborelui sunt dezactivate. Regulatorul de viteza ramane activ si mentine arborele in turatie zero.<br>
+      - Efecte pentru modul de pozitionare: Vezi Axa Stationara / Axa in deplasare<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_7b.png"></td>
+      <td valign="top"><b>Dezactivare axa/arbore activa<br>Axis/spindle disable is active</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX63.3</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA: </b>Axa/actionarea principala este dezactivata.<br>
+      <b>0 = NU: </b>Axa/actionarea principala <b>nu</b> este dezactivata.<br><br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_8.png"></td>
+      <td valign="top"><b>Axa controlata PLC<br>PLC-controlled axis</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX63.1</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA: </b>Controlul axei este transferat catre PLC.<br>
+      <b>0 = NU: </b>Axa este controlata de catre NC.<br><br>
+      Corespunzator cu DBax.DBX28.7 (cerere, axa controlata PLC)
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_9.png"></td>
+      <td valign="top"><b>Roata de Mana activa<br>Active Handwheel</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX64.0...64.2</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">Numărul rotii de mana active<br>
+      <br>
+      MD11324 = 0:<br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+        <tr><td>DBax.DBX64.2</td><td>DBax.DBX64.1</td><td>DBax.DBX64.0</td><td>Roata de mana</td></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>NICI o roata de mana activa</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>Roata de mana 1 activa</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>Roata de mana 2 activa</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>Roata de mana 3 activa</td></tr>
+      </tbody></table>
+      MD11324 = 1:<br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+        <tr><td>DBax.DBX64.2</td><td>DBax.DBX64.1</td><td>DBax.DBX64.0</td><td>Roata de mana</td></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>NICI o roata de mana activa</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>Roata de mana 1 activa</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>Roata de mana 2 activa</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>Roata de mana 3 activa</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>Roata de mana 4 activa</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>Roata de mana 5 activa</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>Roata de mana 6 activa</td></tr>
+      </tbody></table>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_a.png"></td>
+      <td valign="top"><b>Cerere deplasare  "Plus" / "Minus"<br>Traversing request "Plus" / "Minus"</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX64.4<br>DBax.DBX64.5</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> Exista o cerere de deplasare pentru axa.<br>
+      <b>0 = NU:</b> NU exista o cerere de deplasare pentru axa.<br><br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_3_b.png"></td>
+      <td valign="top"><b>Comanda deplasare "Plus" / "Minus"<br>Traversing command "Plus" / "Minus"</b><br>NC -> PLC</td>
+      <td valign="top"><b>DBax.DBX64.6<br>DBax.DBX64.7</b><br><br>DBax = DB[30 + Număr Axă]<br>Exemplu: DB31 = Axa 1</td>
+      <td valign="top">
+      <b>1 = DA:</b> O comanda de deplasare este in asteptare pentru axa.<br>
+      <b>0 = NU:</b> Nici o comanda de deplasare nu este in asteptare pentru axa.<br><br>
+      Comanda de deplasare este emisa functie de MD17900 $MN_VDI_FUNCTION_MASK, bit 0.
+      </td></tr>
+    </tbody>
+    </table>
+    <br>
+    <a id="safety"> </a>
+    <table border="1" cellpadding="3" cellspacing="3" width="100%"><tbody>
+      <tr>
+      <td valign="top"><b>Securitate Axa:</b></td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      <td valign="top"> </td>
+      </tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_1.png"></td>
+      <td valign="top"><b>Mod Safety:<br>Safety Mode:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX70.4<br>DBax.DBX70.5</b></td>
+      <td valign="top">Mod Securitate/Safety pentru axa:<br>
+      DBax.DBX70.4 = 1: NC Safety Integrated (Safety Integrated 'Clasic')<br>
+      DBax.DBX70.5 = 1: DRV Safety Integrated cu SIC/SCC (Safety Integrated 'Plus' cu PLC S7-F Failsafe si Safety Integrated in Actionari)<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_2a.png"></td>
+      <td valign="top"><b>Cerere SBH:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX22.0<br>DBax.DBX22.1</b></td>
+      <td valign="top"><b>deselectare SBH</b><br>
+      <i>SBH - Sicherer Betriebshalt = SOS - Safe Operating Stop = Stop Operational Sigur<br>
+            SG - sichere geschwindigkeit = SLS - Safe Limited Speed = Viteza Limitata Sigur</i><br><br>
+      <b>DBax.DBX22.0 = deselectare SBH/SG</b> <br>
+      <b>DBax.DBX22.1 = deselectare SBH</b> <br><br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+      <tr><td>Bit:</td><td>SBH [SOS] SELECTAT</td><td>SG [SLS] SELECTAT</td><td>Nici SBH nici SG Selectate</td><td>Nici SBH nici SG Selectate</td></tr>
+      <tr><td>DBax.DBX22.0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+      <tr><td>DBax.DBX22.1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+      </tbody></table>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_2b.png"></td>
+      <td valign="top"><b>Stare SOS:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX108.0</b></td>
+      <td valign="top">SBH [Sichere Betriebs Halt = Safe Operating Stop / SOS = Stop Operational Sigur] Activ<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_3a.png"></td>
+      <td valign="top"><b>Cerere SG:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX22.0<br>DBax.DBX22.1</b></td>
+      <td valign="top"><b>deselectare SG</b><br>
+      <i>SBH - Sicherer Betriebshalt = SOS - Safe Operating Stop = Stop Operational Sigur<br>
+            SG - sichere geschwindigkeit = SLS - Safe Limited Speed = Viteza Limitata Sigur</i><br><br>
+      <b>DBax.DBX22.0 = deselectare SBH/SG</b> <br>
+      <b>DBax.DBX22.1 = deselectare SBH</b> <br><br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+      <tr>
+      <td>Bit:</td><td>SBH [SOS] SELECTAT</td><td>SG [SLS] SELECTAT</td><td>Nici SBH nici SG Selectate</td><td>Nici SBH nici SG Selectate</td>
+      </tr><tr>
+      <td>DBax.DBX22.0</td><td>0</td><td>0</td><td>1</td><td>1</td>
+      </tr><tr>
+      <td>DBax.DBX22.1</td><td>0</td><td>1</td><td>0</td><td>1</td>
+      </tr>
+      </tbody></table>
+      
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_3b.png"></td>
+      <td valign="top"><b>Stare SLS:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX110.1</b></td>
+      <td valign="top">SG [Sichere Geschwindigkeit = SLS - Safe Limited Speed = Viteza Limitata Sigur] este Activa<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_4a.png"></td>
+      <td valign="top"><b>Gama de viteza SG:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX22.3<br>DBax.DBX22.4</b></td>
+      <td valign="top"><b>Cerere Gama viteza SG:</b><br>
+      <i>SG - Sichere Geschwindigkeit = SLS - Safe Limited Speed = Viteza Limitata Sigur</i><br><br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+      <tr>
+      <td>Bit:</td><td>Gama SG 1</td><td>Gama SG 2</td><td>Gama SG 3</td><td>Gama SG 4</td>
+      </tr><tr>
+      <td>DBax.DBX22.3</td><td>0</td><td>1</td><td>0</td><td>1</td>
+      </tr><tr>
+      <td>DBax.DBX22.4</td><td>0</td><td>0</td><td>1</td><td>1</td>
+      </tr>
+      </tbody></table>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_4b.png"></td>
+      <td valign="top"><b>Gama SG Activa:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX110.3<br>DBax.DBX110.4</b></td>
+      <td valign="top"><b>Gama SG Activa:</b><br>
+      <i>SG - Sichere Geschwindigkeit = SLS - Safe Limited Speed = Viteza Limitata Sigur</i><br><br>
+      <table border="1" cellpadding="3" cellspacing="0" valign = "top" align = "middle"><tbody>
+      <tr>
+      <td>Bit:</td><td>Gama SG 1</td><td>Gama SG 2</td><td>Gama SG 3</td><td>Gama SG 4</td>
+      </tr><tr>
+      <td>DBax.DBX110.3</td><td>0</td><td>1</td><td>0</td><td>1</td>
+      </tr><tr>
+      <td>DBax.DBX110.4</td><td>0</td><td>0</td><td>1</td><td>1</td>
+      </tr>
+      </tbody></table>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_5a.png"></td>
+      <td valign="top"><b>Cerere STOP A:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX32.2</b></td>
+      <td valign="top"><b>Cerere STOP A activa</b><br><br>
+      "Anularea impulsurilor"/"Pulse cancellation" poate fi solicitata prin intermediul acestui semnal SGE (intrare Safety - nucleu).<br>
+      Functiile de securitate active in momentul respectiv (SG/SBH/SN/SE) nu sunt influentate de acest semnal SGE.<br>
+      Dacă una din limitele active in momentul respectiv este incalcata, este initiata o alarma corespunzatoare. Reactia de oprire corespunzatoare alarmei nu poate fi activata deoarece impulsurile sunt deja anulate. Imediat dupa anularea cererii de stop prin semnalul SGE "deselectare STOP A extern" reactiile de oprire restante devin active.<br>
+      Dacă o cerere de stop este activa, semnalul SGA (iesire Safety - nucleu) "STOP A/B este activ" este setat in mod similar cazului in care ar fi fost setat de un STOP A declansat intern.<br><br>
+      semnal 0: "Anularea impulsurilor"/"Pulse cancellation" este ceruta<br>
+      semnal 1: "Anularea impulsurilor"/"Pulse cancellation" <b>nu</b> este ceruta
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_5b.png"></td>
+      <td valign="top"><b>STOP A Activ:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX111.4</b></td>
+      <td valign="top"><b>STOP A/B este Activ</b><br>
+      Acest semnal indica faptul ca un STOP A/B este activ. Semnalul trebuie sa fie folosit pentru procedura de test (dinamizare fortata) a STOP-urilor externe.<br>
+      semnal 0: STOP A/B <b>nu</b> este activ<br>
+      semnal 1: STOP A/B este activ<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_6a.png"></td>
+      <td valign="top"><b>Cerere STOP C:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX32.3</b></td>
+      <td valign="top"><b>Cerere STOP C activa</b><br><br>
+      Acest semnal SGE (intrare Safety - nucleu) emite o cerere "franare cu nset = 0" (franare cu rampa OFF3).<br>
+      Cand acest tip de oprire este initiat, monitorizarea de securitate a acceleratiei/deceleratiei (SBR = Safe Brake Ramp = Rampa de Franare Sigura) este activata. Suplimentar este declansata temporizarea setata cu MD36952/p9552: $MA_SAFE_STOP_SWITCH_TIME_C / "SI Motion transition time STOP C to SBH" / "SI Timp de tranzitie de la STOP C la SBH" (SBH = Stop Operational Sigur).<br>
+      Dupa acest timp, sistemul comuta automat in starea SBH (Stop Operational Sigur).<br>
+      La activarea unei cereri de stop, semnalul SGA (iesire Safety - nucleu) "STOP C este activ" este setat in mod similar cazului in care ar fi fost setat de un STOP C declansat intern.<br><br>
+      semnal 0: "Franare cu nset = 0" este ceruta<br>
+      semnal 1: "Franare cu nset = 0" <b>nu</b> este ceruta<br>
+      <br>Nota<br>
+      Oprirea cu STOP A extern (anulare impulsuri) are o prioritate mai mare si poate intrerupe un STOP C extern (franare cu rampa de decelerare OFF3).
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_6b.png"></td>
+      <td valign="top"><b>STOP C Activ:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX111.5</b></td>
+      <td valign="top"><b>STOP C este Activ</b><br>
+      Acest semnal indica faptul ca un STOP C este activ. Semnalul trebuie sa fie folosit pentru procedura de test (dinamizare fortata) a STOP-urilor externe.<br>
+      semnal 0: STOP C <b>nu</b> este activ<br>
+      semnal 1: STOP C este activ<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_7a.png"></td>
+      <td valign="top"><b>Cerere STOP D:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX32.4</b></td>
+      <td valign="top"><b>Cerere STOP D activa</b><br><br>
+      Acest semnal SGE (intrare Safety - nucleu) emite o cerere "franare pe un contur".<br>
+      Cand acest tip de oprire (STOP D extern) este initiat, este declansata temporizarea setata cu MD36953/p9553: $MA_SAFE_STOP_SWITCH_TIME_D / "SI Motion transition time STOP D to SBH" / "SI Timp de tranzitie de la STOP D la SBH" (SBH = Stop Operational Sigur).<br>
+      Dupa acest timp, sistemul comuta automat in starea SBH (Stop Operational Sigur).<br>
+      La activarea unei cereri de stop, semnalul SGA (iesire Safety - nucleu) "STOP D este activ" este setat in mod similar cazului in care ar fi fost setat de un STOP D declansat intern.<br><br>
+      semnal 0: "Franare pe contur" este ceruta<br>
+      semnal 1: "Franare pe contur" <b>nu</b> este ceruta<br>
+      <br>Nota<br>
+      Oprirea cu STOP A extern (anulare impulsuri) si/sau STOP C extern (franare cu rampa OFF3) are o prioritate mai mare si poate intrerupe un STOP D extern (franare pe contur).
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_7b.png"></td>
+      <td valign="top"><b>STOP D Activ:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX111.6</b></td>
+      <td valign="top"><b>STOP D este Activ</b><br>
+      Acest semnal indica faptul ca un STOP D este activ. Semnalul trebuie sa fie folosit pentru procedura de test (dinamizare fortata) a STOP-urilor externe.<br>
+      semnal 0: STOP D <b>nu</b> este activ<br>
+      semnal 1: STOP D este activ<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_8a.png"></td>
+      <td valign="top"><b>Cerere STOP E:</b><br>PLC->NC</td>
+      <td valign="top"><b>DBax.DBX32.5</b></td>
+      <td valign="top"><b>Cerere STOP E activa</b><br><br>
+      Acest semnal SGE (intrare Safety - nucleu) poate fi utilizat pentru a initializa o oprire cu ajutorul funnctiei "stop extins si retragere".<br>
+      Cand acest tip de oprire (STOP E extern) este initiat, este declansata temporizarea setata cu MD36954/p9554: $MA_SAFE_STOP_SWITCH_TIME_$ / "SI Motion transition time STOP E to SBH" / "SI Timp de tranzitie de la STOP E la SBH" (SBH = Stop Operational Sigur).<br>
+      Dupa acest timp, sistemul comuta automat in starea SBH (Stop Operational Sigur).<br>
+      La activarea unei cereri de stop, semnalul SGA (iesire Safety - nucleu) "STOP E este activ" este setat in mod similar cazului in care ar fi fost setat de un STOP E declansat intern.<br><br>
+      semnal 0: "Stop/retragere" este ceruta<br>
+      semnal 1: "Stop/retragere" <b>nu</b> este ceruta<br>
+      <br>Nota<br>
+      Oprirea cu STOP A extern (anulare impulsuri) si/sau STOP C extern (franare cu rampa OFF3) si/sau STOP D extern (franare pe contur) are/au o prioritate mai mare si poate/pot intrerupe un STOP E extern (stop extins/retragere).
+      <br><br>
+      STOP E produce un raspuns diferit fata de STOP D doar daca utilizatorul a configurat functia ESR - Extended Stop and Retract = Stop Extins si Retragere - si initierea functiei ESR este programata functie de $VA_STOPSI sau $A_STOPESI. Dacă ESR nu este activata, STOP E se comporta ca STOP D. Totusi, daca ESR a fost configurata incorect, va fi o intarziere pana la valoarw de timp setata in $MC_ESR_DELAY_TIME1 si $MC_ESR_DELAY_TIME2 comparativ cu STOP D pana cand operatia de franare este initiata.<br>
+      Dupa expirarea acestor timpi, franarea este initializata la limita de curent.
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_8b.png"></td>
+      <td valign="top"><b>STOP E Activ:</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX111.7</b></td>
+      <td valign="top"><b>STOP E este Activ</b><br>
+      Acest semnal indica faptul ca un STOP E este activ. Semnalul trebuie sa fie folosit pentru procedura de test (dinamizare fortata) a STOP-urilor externe.<br>
+      semnal 0: STOP E <b>nu</b> este activ<br>
+      semnal 1: STOP E este activ<br>
+      </td></tr>
+      <tr>
+      <td valign="top"><img src="images/area_840d_4_9.png"></td>
+      <td valign="top"><b>Pulsurile sunt Permise</b><br>NC->PLC</td>
+      <td valign="top"><b>DBax.DBX108.2</b></td>
+      <td valign="top"><b>Pulsurile sunt Permise [de catre Safety]</b><br>
+      </td></tr>
+    </tbody>
+    </table>
+    </li>
+  </ul>
+</section>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2 id="840functions">Area '840D Functions'</h2>
+      <br><img src="images/area_840f_0.png" style="width:100%; max-width:700px"><br><br>
+      <a id="functions"><b>Monitorizare Functii NC (NC catre PLC):</b></a><br><br>
+      Monitorizeaza si inregistreaza toate functiile M (Miscellaneous), S (Turatii arbori / Spindle Speed), T (Scule / Tool), D (taisuri pentru o scula / cutting edges for a tool) sau H (ca valori Intregi sau Reale), functii programate intr-un program piesa si transmise catre PLC.<br>
+      Sunt disponibile doua ferestre de monitorizare astfel incat este posibila monitorizarea simultana a doua tipuri de functii (de ex. functii T si D) din acelasi Canal sau din Canale diferite ale NC.<br><br>
+      <a id="m_fct1"><b>Functii M (NC catre PLC):</b></a><br><br>
+      Functiile M sunt comenzi scrise in cod G, in programul piesa, dar executate de catre PLC.<br>
+      Exemplu: Pornirea racirii sculei aflate in arbore: comanda este scrisa in programul piesa (de exemplu M07) dar electro-ventilul ce controleaza curgerea lichidului de racire este comandat din iesirile PLC.
+      <br>
+      Using M functions is the most common way to transfer binary commands from NC to PLC.<br>
+      <br>
+      Decodificarea functiilor M in PLC:<br>
+      La Sinumerik 840 sunt disponibile 3 metode de decodificare a functiilor M in PLC.<br><br>
+      <b>1. Decodificare directa (Functii M rapide - Quick M functions)</b><br><br>
+      Cea mai simpla metode de decodificare a functiilor M este utilizarea semnalelor decodificate direct din blocul DB 'Channel DB' din PLC.<br>
+      Fiecare bit este setat pentru un singur ciclu PLC.<br>
+      Sunt decodificare doar primele 99 de functii.<br>
+      Indexul functiei M nu este decodificat (se ignora).<br>
+      In tab-ul <a href="#mfctcalc">'Aria 840'</a> din programul 'Cam740' puteti gasi un mic calculator pentru bit si o functie de monitorizare online a starii acestuia.<br><br>
+      <img alt="Quick M functions" src="images/area_840f_m1.png" style="width:100%; max-width:577px">
+      <br><br>
+      <a id="m_fct2"><b>2. Decodificare utilizand o Lista de Functii (DB75, DB76)</b></a><br><br>
+      O alta metode de decodificare a functiilor M in PLC o reprezinta utilizarea unei Liste de Functii.<br>
+      Metoda a fost foarte populara in anii '90 dar este rar utilizata acum.<br>
+      Conditie preliminara:<br>
+      Trebuie sa fie activata in OB100, in apelul functiei FB1, DB7:
+      &nbsp;&nbsp;&nbsp;CALL FB 1, DB7<br>
+      &nbsp;&nbsp;&nbsp;...<br>
+      &nbsp;&nbsp;&nbsp;ListMDecGrp := ___ //numarul de grupuri de functii de decodificat, max. 16 grupuri<br>
+      &nbsp;&nbsp;&nbsp;...<br>
+      <br>
+      <i><b>Sfat pentru service:</b> Dacă in OB100, in apelul functiei FB1 gasiti ListMDecGrp > 0 si blocurile DB75 si DB76 sunt prezente in PLC, pe masina este utilizata aceasta metoda de decodificare a functiilor M.</i><br>
+      <br>
+      DB75 este creat utilizand un sablon / template din Sinumerik Toolbox.<br>
+      Structura este:<br>
+      <b>MSigGrp[1].MExtAdr</b> INT <i>//Extensia functiilor M pentru Grupul 1</i><br>
+      <b>MSigGrp[1].MFirstAdr</b> DINT <i>//numărul primei funcții M pentru Grupul 1</i><br>
+      <b>MSigGrp[1].MLastAdr</b> DINT <i>//numărul ultimei funcții M pentru Grupul 1</i><br>
+      ...<br>
+      <b>MSigGrp[n].MExtAdr</b> INT <i>//extensia functiei M pentru Grupul n</i><br>
+      <b>MSigGrp[n].MFirstAdr</b> DINT <i>//numărul primei funcții M pentru Grupul n</i><br>
+      <b>MSigGrp[n].MLastAdr</b> DINT <i>//numărul ultimei funcții M pentru Grupul n</i><br>
+      <br>
+      Exemplu:<br>
+      <img alt="Decodificare fct. M" src="images/area_840f_m2.png" style="width:100%; max-width:577px">
+      <br><br>
+      In DB76 bitii vor avea urmatoarea semnificatie:<br>
+      <b>DBX0.0</b> M2 = 60<br>
+      <b>DBX0.1</b> M2 = 61<br>
+      ....<br>
+      <b>DBX0.7</b> M2 = 67<br>
+      <b>DBX1.0</b> M2 = 68<br>
+      <b>DBX1.1</b> M2 = 69<br>
+      <br>
+      Bitii din DB76 raman setati. Valoarile lor trebuie sa fie resetate din programul PLC scris de utilizator.<br>
+      <br>
+      <a id="m_fct3"><b>3. Scanare modificari ale valorilor</b></a><br><br>
+      O alta metoda (probabil cea mai folosita) de decodificare a valorilor functiilor M din PLC o reprezinta scanarea 'modificarii' starii functiilor.<br>
+      <b>Aceasta metoda e utilizata si de programul 'Cam740'.</b><br><br>
+      Intr-un bloc NC pot fi apelate maximum 5 functii M.<br>
+      De fiecare data cand in NC este rulat un bloc - o fraza de program piesa - in care sunt apelate functii M, in PLC, in blocul DB specific respectivului canal (Channel DB) sunt setati urmatorii biti, pentru un singur ciclu PLC.<br>
+      <img alt="modificare functie M" src="images/area_840f_m3.png" style="width:100%; max-width:577px">
+      <br><br>
+      ...iar valorile functiilor M sunt scrise in:<br>
+      <img alt="modificare functie M" src="images/area_840f_m4.png" style="width:100%; max-width:577px">
+      <br><br>
+      'Cam740' scaneaza starea bitilor in DB2n.DBX 58.0 ... 58.4<br><br>
+      Dacă DB2n.DBX58.0 = 1 => citeste numarul functiei M din DBD70 si extensia functiei M din DBW68<br>
+      Dacă DB2n.DBX58.1 = 1 => citeste numarul functiei M din DBD76 si extensia functiei M din DBW74<br>
+      Dacă DB2n.DBX58.2 = 1 => citeste numarul functiei M din DBD82 si extensia functiei M din DBW80<br>
+      Dacă DB2n.DBX58.3 = 1 => citeste numarul functiei M din DBD88 si extensia functiei M din DBW86<br>
+      Dacă DB2n.DBX58.4 = 1 => citeste numarul functiei M din DBD94 si extensia functiei M din DBW92<br>
+      <br><br>
+      <a id="h_fct1"><b>Funcții H (NC către PLC):</b></a><br><br>
+      Funcțiile H sunt comenzi, scrise în cod G, în programul piesă, dar executate de către PLC, utilizate pentru transferul valorilor numerice de la NC la PLC.<br>
+      Într-o frază NC este posibil să fie scrise maxim 3 apeluri de funcții H.<br>
+      <img alt="H functions" src="images/area_840f_hfc.png" style="width:100%; max-width:577px">
+      <br><br>
+      'Cam740' scanează biții din DB2n.DBX 64.0 ... 64.2<br><br>
+      Dacă DB2n.DBX64.0 = 1 => citește numărul funcției H din DBD142 și extensia funcției H din DBW140<br>
+      Dacă DB2n.DBX64.1 = 1 => citește numărul funcției H din DBD148 și extensia funcției H din DBW146<br>
+      Dacă DB2n.DBX64.2 = 1 => citește numărul funcției H din DBD154 și extensia funcției H din DBW152<br>
+      <br>
+      Vedeți și:<br>
+      MD22110 $MC_AUXFU_H_TYPE_INT (tipul funcțiilor auxiliare H este "întreg")<br>
+      MD22230 $MC_AUXFU_H_SYNC_TYPE (momentul emiterii funcțiilor H)<br>
+      Ref.: Function Manual, Basic Functions; Chapter "H2: Auxiliary function outputs to PLC”<br><br>
+      <a id="t_fct1"><b>Funcții T (NC către PLC):</b></a><br>
+      <a id="d_fct1"><b>Funcții D (NC către PLC):</b></a><br><br>
+      Într-o frază NC este posibil să fie scrise maxim 3 apeluri de funcții T.<br><br>
+      <b>Notă:</b> Funcțiile T programate nu sunt emise către PLC atunci când "Tool management" este activat (cum este cazul în versiunile actuale ale Sinumerik 840D/One). În acest caz nu sunt detectate date prin monitorizarea PLC.<br><br>
+      <i>Numerele T pe 8 decade sunt disponibile doar la DBD118 "T function 1".<br>
+      Functiile D programate cu nume (de ex. D=CUTTING EDGE_1) nu pot fi emise către PLC în format ASCII.<br>
+      Numerele D pe 5 decade sunt disponibile doar ca DBW130 "D function 1".<br>
+      Formatul REAL corespunde reprezentarii „floating-point” din STEP 7 (24-bit mantissa si 8-bit exponent). Acest format ”floating point” furnizeaza maximum 7 valori valide.</i><br><br>
+      <img alt="T functions" src="images/area_840f_tfc.png" style="width:100%; max-width:577px">
+      <br><br>
+    </li>
+  </ul>
+</section>
+<section class="elem_lst">
+  <ul>
+    <li>
+      <h2 id="120diagnosis">Diagnoză Sinamics S120/G120</h2>
+      <br><img src="images/area_120s_1.png" style="width:100%; max-width:700px"><br><br>
+      <a id="120settings"><b>Conexiuni, Interfețe:</b></a><br><br>
+      <table>
+        <tr>
+          <td rowspan="5" style="width:100px"><img alt="connection" title="Sinamics interfaces" src="images/area_s120_ig.png" style="max-width:100px;"></td>
+          <td><b>Sinamics G120:</b></td>
+        </tr>
+        <tr><td> Localizați interfața Profinet sau Profibus</td></tr>
+        <tr><td> Este posibil să aveți nevoie de un alt software pentru a găsi adresa Ehernet / Profibus a modulului (Starter, StartDrive, TIA Portal, etc).</td></tr>
+        <tr><td> Rack: 0</td></tr>
+        <tr><td> Slot: Oricare</td></tr>
+        <tr><td rowspan="7" style="width:100px"><img alt="connection" title="Sinamics interfaces" src="images/area_s120_is.png" style="max-width:100px;"></td>
+          <td><b>Sinamics S120:</b></td>
+        </tr>
+        <tr><td> Puteți utiliza X127 (Ethernet Service Interface) sau orice interfață Profibus / Profinet interface disponibilă</td></tr>
+        <tr><td> Este posibil să aveți nevoie de un alt software pentru a găsi adresa Ehernet / Profibus a modulului (Starter, StartDrive, TIA Portal, etc).</td></tr>
+        <tr><td> Rack: 0</td></tr>
+        <tr><td> Slot: Oricare</td></tr>
+        <tr><td>&nbsp</td></tr>
+        <tr><td>&nbsp</td></tr>
+      </table>
+      <br><br>
+      <a id="120conection"><b>Număr obiect:</b></a><br><br>
+      <table>
+        <tr valign="top">
+          <td rowspan = "2" style="width:140px"><img alt="connection" title="Sinamics G120" src="images/area_s120_g120.png" style="max-width:140px;"></td>
+          <td><b>Sinamics G120:</b></td>
+        </tr>
+        <tr valign="top"><td> Pentru actionarile mono-axa (precum Sinamics G120, G120D, G120C, G120X, etc.) numarul obiectului nu este relevant.<br>
+        Unitatea de Control este montată pe modulul de forță (Power Module) și împreună formează un Obiect de Acționare: un sistem cu capabilitatea de a controla motorul, salva parametrii, a primi comenzi, etc.</td></tr>
+        <tr valign="top"><td rowspan="3" style="width:140px"><img alt="S120 modular" title="Sinamics S120 modular" src="images/area_s120_s120.png" style="max-width:140px;"></td>
+          <td><b>Sinamics S120:</b></td>
+        </tr>
+        <tr valign="top"><td> Sistemele de acționări cu arhitectura modulară, precum Sinamics S120, au o arhitectură complexă.<br>
+        Diversele componente sunt conectate între ele, prin intermediul barelor de Curent Continuu și prin intermediul interfeței de sistem Drive-Cliq, pentru a controla unul sau mai multe motoare.<br>
+        În acest mod, motorul nu mai este controlat de un singur echipament hardware, ca în cazul sistemelor mono-drive ('Single Drive'), pentru a controla motorul sunt necesare mai multe componente conectate între ele.<br>
+        </td></tr>
+        <tr><td>   Exemplu:<br>
+        În imaginea din stânga este reprezentat un sistem modular ce controlează 3 motoare.<br>
+        - primul modul (cel mic, din stânga) este Unitatea de Control (Control Unit)<br>
+        - al 2-lea modul este Modulul de Linie (Line Module): un redresor ce transformă curentul alternativ de la rețea în curent continuu.<br>
+        - al 3-lea modul este un Modul Dublu de Motor (Double Motor Module): două convertizoare ce modulează curentul continuu venit pe barele circuitului intermediar de la modulul redresor (Line Module) în curent alternativ pentru controlul motoarelor.<br>
+        - al 4-lea modul este un Modul pentru un Motor (Single Motor Module): un convertizor ce modulează curentul continuu venit pe barele circuitului intermediar de la modulul redresor (Line Module) în curent alternativ pentru controlul motorului.<br></td></tr>
+        <tr valign="top"><td rowspan="4" style="width:140px"><img alt="Sinamics S120" title="Sinamics S120 modular" src="images/area_s120_s121.png" style="max-width:140px;"></td>
+        <td><b>(1)</b> In sistemele Sinamics S120, Unitatea de Control (Control Unit) este considerata un Obiect de Actionare (Drive Object). <br>In exemplul nostru va fi primul Obiect.</td>
+        </tr>
+        <tr valign="top"><td><b>(2)</b> Intr-un sistem modular este nevoie de un modul redresor. Unele redresoare, precum "Active Line Module" au parametri si sunt considerate Obiecte de Actionari in sistem.<br>In exemplul nostru modulul Active Line Module (redresorul) este al 2-lea Obiect.
+        </td></tr>
+        <tr valign="top"><td><b>(3)</b> si <b>(4)</b> Un modul de motor dublu (Double Motor Module) are doua punti invertoare independente, fiecare capabila sa controleze tensiunea de curent alternativ pentru un motor. Fiecare invertor are proprii parametri si, impreuna cu motorul si electronica necesara pentru encoder (de exemplu un Sensor Module) formeaza cate un Obiect de Actionari.<br>In exemplul nostru, Obiectul <b>(3)</b> este format din primul invertor al Modulului Duble, primul motor si eventual electronica necesara pentru encoder.<br>
+        Obiectul <b>(4)</b> este format din al doilea invertor al Modulului Dublu, al doilea motor si eventual electronica necesara pentru encoder.
+        </td></tr>
+        <tr valign="top"><td><b>(5)</b> Obiectul de Actionari <b>(5)</b> este format din ultimul Modul de Motor, ultimul motor si eventual electronica necesara pentru encoder.
+        </td></tr>
+      </table>
+      <br><br>
+    </li>
+  </ul>
+</section><section class="elem_lst">
+  <ul>
+    <li>
+      <p>
+        <b>Versiuni:</b><br>
+        <b>v23.06.24:</b> Versiune de test. Rescriere completă a proiectului Monitor5.<br>
+        <br>
+        <i>Cam740 utilizează Snap7 sub Licență LGPL3 pentru a stabili comunicatia cu echipamentul Sinumerik/Sinamics/Step7.<br>
+        Cam740 utilizează Qt sub Licență LGPL3.</i>
+      </p>
+    </li>
+  </ul>
+</section>
+<!-- END Main Area ... -->
+<section class="footer">
+  alxcor@yahoo.com
+</section>
+</body></html>
