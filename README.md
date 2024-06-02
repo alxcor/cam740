@@ -25,9 +25,10 @@ No installation is needed, the program is portable and saves all data in .INI fi
 To 'uninstall' simply delete the folder.
 
 Versions:
+- v240526 [26.05.2024] Log function is functional. Bug fixes and functional improvements.
 - v230624 [24.06.2023] first test version. Complete rewrite of Monitor5 project.
 
-*- The project uses Snap7 under LGPL3 License to communicate with the Sinumerik/Sinamics/Step7 equipment.*
-*- The project uses Qt under LGPL3 License.*
-*- The project may also use S7ONLINE interface if the DLL file is provided by user and a license is activated.*
+-* The project uses Snap7 under LGPL3 License to communicate with the Sinumerik/Sinamics/Step7 equipment.*
+-* The project uses Qt under LGPL3 License.*
+-* The project may also use PRODAVE interface if the DLL file is provided by user and a license is activated.*
 
