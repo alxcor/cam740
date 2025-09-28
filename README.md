@@ -25,6 +25,7 @@ No installation is needed, the program is portable and saves all data in .INI fi
 To 'uninstall' simply delete the folder.
 
 Versions:
+- v250120 [20.01.2025] Split in 2 versions: x32 (32bit) and x64 (64bit) (x64 version without Prodave support).
 - v240526 [26.05.2024] Log function is functional. Bug fixes and functional improvements.
 - v230624 [24.06.2023] first test version. Complete rewrite of Monitor5 project.
 
